@@ -4,7 +4,7 @@ All notable changes to projects built with this agent team are documented
 here, maintained by the `docs-writer` subagent. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [1.0.0] — 2026-07-08
 
 ### Added
 - Initial agent team scaffold: orchestrator + 9 specialist subagents
@@ -13,6 +13,9 @@ here, maintained by the `docs-writer` subagent. Format follows
 - Living-document templates: `project-overview.md`, `research.md`,
   `architecture.md`, `tasks.md`.
 - Custom commands: `/start-project`, `/build`, `/status`, `/replan`.
+- Published to npm and GitHub as open-source scaffold.
+
+## [Unreleased]
 
 <!--
 docs-writer: append new entries above this line as work ships, grouped
