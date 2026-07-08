@@ -1,0 +1,42 @@
+{
+  "name": "opencode-autonomous-team",
+  "version": "1.0.0",
+  "description": "A 10-agent autonomous engineering team for OpenCode — one orchestrator + nine specialists implementing a full goal-to-production software development lifecycle",
+  "keywords": [
+    "opencode",
+    "ai-agents",
+    "autonomous",
+    "engineering-team",
+    "scaffold",
+    "template",
+    "agentic",
+    "software-development",
+    "ai-coding",
+    "multi-agent"
+  ],
+  "homepage": "https://github.com/beast-ofcourse/opencode-autonomous-team",
+  "bugs": {
+    "url": "https://github.com/beast-ofcourse/opencode-autonomous-team/issues"
+  },
+  "license": "MIT",
+  "author": "Beast Ofcourse (https://github.com/beast-ofcourse)",
+  "funding": "https://github.com/sponsors/beast-ofcourse",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beast-ofcourse/opencode-autonomous-team.git"
+  },
+  "files": [
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "README.md",
+    "opencode.json",
+    ".gitignore",
+    ".opencode/agents/*.md",
+    ".opencode/commands/*.md",
+    "docs/templates/*.md",
+    "package.json"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
