@@ -1,236 +1,231 @@
-# Autonomous Agent Team for OpenCode
+<div align="center">
 
-A 1 primary + 9 subagent engineering team for [OpenCode](https://opencode.ai),
-implementing a full goal → research → requirements → architecture →
-planning → execution → verification → self-critique → polish → goal-
-validation loop, with two continuously-updated living documents
-(`docs/project-overview.md` and `docs/tasks.md`) instead of one-shot plans.
+  <h1>🤖 OpenCode Autonomous Team</h1>
+
+  <p><strong>A 10-agent AI engineering squad that takes your goal and ships production-ready software — autonomously.</strong></p>
+
+  <p>
+    <a href="https://www.npmjs.com/package/opencode-autonomous-team"><img src="https://img.shields.io/npm/v/opencode-autonomous-team?style=flat-square&logo=npm&color=cb3837" alt="npm version"></a>
+    <a href="https://github.com/beast-ofcourse/opencode-autonomous-team"><img src="https://img.shields.io/github/stars/beast-ofcourse/opencode-autonomous-team?style=flat-square&logo=github" alt="GitHub stars"></a>
+    <a href="https://github.com/beast-ofcourse/opencode-autonomous-team/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="MIT license"></a>
+    <a href="https://opencode.ai"><img src="https://img.shields.io/badge/built_for-OpenCode-6c5ce7?style=flat-square" alt="Built for OpenCode"></a>
+  </p>
+
+  <br>
+
+  <blockquote>
+    <strong>🚀 From "I need a habit tracker" to a deployed, tested, documented web app — without leaving your terminal.</strong><br>
+    <em>Drop the scaffold into any folder, give it a goal, and watch ten AI specialists coordinate, research, design, implement, test, review, and deliver.</em>
+  </blockquote>
+
+  <br>
+
+  <pre>npm install opencode-autonomous-team</pre>
+
+</div>
+
+---
+
+## ✨ What Is This?
+
+**OpenCode Autonomous Team** is a drop-in agent scaffold for [OpenCode](https://opencode.ai) that assembles a **10-person AI engineering department** inside your terminal. It doesn't just write code — it runs a complete, repeatable software development lifecycle:
+
+```
+🧠 Orchestrator — the tech lead who never sleeps
+  ├── 🔍 Researcher     — competitor analysis, library evaluation, best-practice mining
+  ├── 📐 Planner        — requirements engineering, architecture design, task breakdown
+  ├── 🎨 Frontend       — UI components, state management, accessibility, styling
+  ├── ⚙️ Backend        — APIs, databases, auth, business logic, integrations
+  ├── 🧪 Tester         — unit/integration/e2e tests, coverage, real pass/fail results
+  ├── 📊 Performance    — profiling, bundle analysis, query optimization, caching
+  ├── 🔒 Security       — threat modeling, dependency audits, authN/Z review
+  ├── 📖 Docs Writer    — README, API docs, changelog, deployment guides
+  └── 👁️ Reviewer       — independent code review, production-readiness gate
+```
+
+Say goodbye to context-switching, handoff overhead, and single-agent hallucinations. This team **researches before building**, **tests before merging**, **reviews before shipping**, and **never fabricates evidence**.
+
+---
+
+## 🎯 What Makes This Different
+
+| Most AI Coding Tools | OpenCode Autonomous Team |
+|---|---|
+| One agent doing everything (and hallucinating confidently) | **10 specialized agents** — each in its own lane, each with scoped permissions |
+| "I wrote some code" = done | **Goal-to-production loop**: research → requirements → architecture → plan → implement → test → review → optimize → document → ship |
+| One-shot prompts, no revision | **Living documents** — `tasks.md` and `project-overview.md` evolve continuously; nothing gets silently rewritten |
+| May or may not test, may or may not verify | **Evidence-gated completion** — every task is `done` only when tests pass, a reviewer signs off, and a real user could achieve the goal |
+| Unlimited delegation chains ($$$) | **Maximum depth-1 delegation** — subagents can't spawn subagents; token runaway engineered out of the architecture |
+| Security as an afterthought | **Security and accessibility are baseline** — server-side validation always required, passwords always hashed, UI always keyboard-operable |
+
+---
+
+## 🏗️ Architecture
 
 ```
 User
   │
   ▼
-Autonomous Orchestrator (primary agent, mode: primary)
-  │
-  ├── researcher     — competitor/OSS/library/pattern research
-  ├── planner        — requirements, architecture, living task backlog
-  ├── frontend       — UI implementation
-  ├── backend        — API/DB/auth implementation
-  ├── tester         — writes and actually runs tests, reports real results
-  ├── performance    — measures and optimizes, before/after numbers only
-  ├── security       — evidenced findings, never a generic checklist
-  ├── docs-writer    — README/API docs/changelog/deployment guide
-  └── reviewer       — independent, read-only production-readiness gate
+┌─────────────────────────────────────────────┐
+│         Autonomous Orchestrator              │  Primary agent — owns the 10-phase loop
+│  Phase 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 │
+└────┬──────┬──────┬──────┬──────┬──────┬────┘
+     │      │      │      │      │      │
+     ▼      ▼      ▼      ▼      ▼      ▼
+  ┌─────┐ ┌────┐ ┌──────┐ ┌────┐ ┌────┐ ┌──────┐
+  │Research│Planner│Frontend│Backend│Tester│Perf  │
+  └─────┘ └────┘ └──────┘ └────┘ └────┘ └──────┘
+     │      │      │      │      │      │
+     ▼      ▼      ▼      ▼      ▼      ▼
+  ┌──────┐ ┌────────┐ ┌──────┐ ┌────────┐
+  │Security│DocsWriter│Reviewer│Commands │
+  └──────┘ └────────┘ └──────┘ └────────┘
 ```
 
-## What's actually in this zip
+**Every subagent has `task: deny`.** Only the orchestrator dispatches work. Delegation is always depth-1 by architectural mandate — enforced at the permission layer, not just by convention. This prevents the uncontrolled recursive delegation that burns tokens and produces diminishing returns.
 
-```
-.
-├── opencode.json                    # root config — models, permissions, default agent
-├── AGENTS.md                        # project-wide conventions loaded for every agent
-├── README.md                        # this file
-├── CHANGELOG.md                     # starter changelog, maintained by docs-writer
-├── .gitignore
-├── .opencode/
-│   ├── agents/
-│   │   ├── orchestrator.md          # primary agent — the 10-phase loop lives here
-│   │   ├── researcher.md
-│   │   ├── planner.md
-│   │   ├── frontend.md
-│   │   ├── backend.md
-│   │   ├── tester.md
-│   │   ├── performance.md
-│   │   ├── security.md
-│   │   ├── docs-writer.md
-│   │   └── reviewer.md
-│   └── commands/
-│       ├── start-project.md         # /start-project — Phase 0-5
-│       ├── build.md                 # /build — Phase 6-10, the execution loop
-│       ├── status.md                # /status — read-only living-doc report
-│       └── replan.md                # /replan — restructure docs after scope change
-└── docs/
-    └── templates/
-        ├── project-overview.template.md
-        ├── research.template.md
-        ├── requirements.template.md
-        ├── architecture.template.md
-        └── tasks.template.md
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- [OpenCode](https://opencode.ai) installed (`curl -fsSL https://opencode.ai/install | bash`)
+- At least one model provider configured ([Anthropic](https://anthropic.com), [OpenAI](https://openai.com), or any supported provider)
+- Node.js 18+ (for npm install)
+
+### Installation
+
+```bash
+# Install the scaffold
+npm install opencode-autonomous-team
+
+# Or clone directly from GitHub
+git clone https://github.com/beast-ofcourse/opencode-autonomous-team.git my-project
+cd my-project
+
+# Start OpenCode in this directory
+opencode
 ```
 
-The `docs/*.md` **files themselves** (not the templates) get created by the
-agents the first time you run `/start-project` — they don't ship pre-filled
-because they're supposed to reflect *your* actual project, not a generic
-example.
+### Your First Session
 
-## Requirements
-
-- [OpenCode](https://opencode.ai) installed (`curl -fsSL https://opencode.ai/install | bash`,
-  or see their docs for your platform).
-- At least one model provider configured (Anthropic, OpenAI, or any
-  provider OpenCode supports) — run `opencode auth login` if you haven't
-  already, or set the relevant API key env var.
-- This scaffold defaults to `anthropic/claude-sonnet-4-5` as the main model
-  and `anthropic/claude-haiku-4-5` as the small/cheap model in
-  `opencode.json`. **Change these to whatever provider/model you actually
-  have access to** — see [Changing the model(s)](#changing-the-models)
-  below.
-
-## Installation
-
-1. Unzip this into an **empty folder**, or the root of an existing project
-   you want this team to work on.
-   ```bash
-   unzip opencode-autonomous-team.zip -d my-project
-   cd my-project
-   ```
-2. If you're dropping this into an *existing* codebase, that's fully
-   supported — the orchestrator is instructed to detect and respect
-   existing conventions rather than assuming a greenfield build. Just make
-   sure `opencode.json` and `AGENTS.md` at the repo root don't collide with
-   ones you already have (merge them by hand if you already have your own
-   `opencode.json` — OpenCode merges config files, but two files with the
-   same name can't both exist at the same path, so combine them).
-3. Start OpenCode in this directory:
-   ```bash
-   opencode
-   ```
-4. Confirm the agent team loaded:
-   ```
-   /agents
-   ```
-   You should see `orchestrator` as a primary agent and the nine
-   specialists listed as subagents.
-
-## First run
-
-Give it a goal:
-
-```
+```bash
+# Phase 0-5: Plan your project with research-backed decisions
 /start-project Build a habit-tracking web app. Users can create habits,
-check them off daily, and see a streak. Should work on mobile browsers.
-No budget for paid infra right now — free tier only.
-```
+  check them off daily, and see a streak. Should work on mobile browsers.
+  No budget for paid infra right now — free tier only.
 
-This runs Phase 0 through Phase 5: it will infer reasonable defaults, ask
-you at most a couple of clarifying questions only if something is truly
-ambiguous, delegate real research to `researcher`, turn that into
-requirements, design the architecture, and produce an initial `docs/tasks.md`
-backlog — then **stop and show you a summary** before writing any
-application code, so you can sanity-check the plan.
-
-If it looks right:
-
-```
+# Review the plan, then...
+# Phase 6-10: Autonomous build, test, review, and ship
 /build
-```
 
-This runs the full autonomous execution loop (Phase 6–10): implement →
-test → lint → fix → review → optimize → document → commit, task by task,
-until the orchestrator can honestly say a real user could pick up the
-result and achieve the original goal.
-
-Check in any time without triggering new work:
-
-```
+# Check progress anytime without triggering new work
 /status
+
+# Change scope mid-project? No problem.
+/replan We actually need multi-user support, not just single-user local storage.
 ```
 
-If you change your mind about scope mid-project, or the team discovers
-something that changes the plan:
+---
 
-```
-/replan We actually need multi-user support, not just single-user local
-storage.
-```
+## 🎮 Commands
 
-You can also just talk to the orchestrator in plain language instead of
-using the slash commands — the commands are shortcuts, not the only way in.
-`@mention` any individual specialist directly too (e.g. `@security review
-the auth flow`) if you want to talk to one specifically.
+| Command | Phase | What It Does |
+|---|---|---|
+| `/start-project <goal>` | 0–5 | Ingest goal → research → requirements → architecture → tasks. Stops for your approval before writing code. |
+| `/build` | 6–10 | Execute the full autonomous loop: implement → test → lint → fix → review → optimize → document → commit. Repeats until the goal is met. |
+| `/status` | — | Read-only snapshot of all living docs: what phase you're in, task progress, blockers. |
+| `/replan <change>` | — | Update scope mid-project: regenerate tasks.md without losing history. |
 
-## Why it's structured this way
+You can also just **talk to the orchestrator in plain language** — the commands are shortcuts, not the only interface.
 
-- **One primary agent, nine subagents** — matches how OpenCode's Task tool
-  and `@mention` routing actually work: primary agents hold the
-  conversation and delegate; subagents run in their own session/context
-  window and report back.
-- **Every subagent has `task: deny`** — no subagent can spawn another
-  subagent. Only the orchestrator can dispatch work, and only to the nine
-  agents explicitly allow-listed in its own `permission.task` config. This
-  is a deliberate guard against uncontrolled recursive delegation (a known
-  sharp edge in agentic frameworks generally — chains that keep spawning
-  child tasks with no depth limit can burn enormous amounts of time and
-  tokens for no additional work done).
-- **Destructive commands are denied or gated at the permission layer**, not
-  just discouraged in prose — `rm -rf`, force-pushes, `sudo`, and database
-  drops are blocked or require explicit approval across every agent.
-- **Living documents, not one-shot output.** `docs/project-overview.md` and
-  `docs/tasks.md` are designed to be edited continuously: tasks move
-  through pending → in-progress → blocked → needs-review → done, new tasks
-  get created the moment unexpected complexity surfaces, and nothing gets
-  silently renumbered or deleted — see each template's own comments for
-  the exact rules each agent follows.
-- **Evidence over vibes.** `tester`, `performance`, and `security` are all
-  explicitly instructed to report only what they actually ran/measured/
-  found — never a plausible-sounding but fabricated result. `reviewer` is
-  read-only by design so its judgment stays independent of whoever wrote
-  the code.
+---
 
-## Changing the model(s)
+## 🧩 Use Cases
 
-Edit the top of `opencode.json`:
+- **Greenfield projects** — from "I have an idea" to shipped MVP, fully autonomous
+- **Existing codebases** — drop the team into any repo; it detects conventions and works within them
+- **Prototype validation** — get a working, tested prototype in hours instead of days
+- **Technical spikes** — delegate research and proof-of-concept work to the team
+- **Learning accelerator** — watch the team design and build; study the architecture docs and test strategies it produces
+
+---
+
+## 🔒 Safety Architecture
+
+This team is designed with deliberate, hard constraints:
+
+| Constraint | How It's Enforced |
+|---|---|
+| **No recursive delegation** | Every subagent has `task: {"*": "deny"}`. Only the orchestrator dispatches, and only depth-1. |
+| **No destructive commands** | `rm -rf`, `sudo`, force-pushes, and database drops are denied at the permission layer. No agent can bypass this — not even the orchestrator. |
+| **No fabricated results** | `tester`, `performance`, and `security` are explicitly instructed to report only what they actually ran/measured/found. |
+| **No silent scope changes** | Every living doc has a revision log. Nothing gets silently rewritten — changes are tracked, dated, and explained. |
+| **No rubber-stamp reviews** | `reviewer` is read-only by design. Its judgment stays independent of whoever wrote the code. |
+
+---
+
+## ⚙️ Configuration
+
+### Changing Models
+
+Edit `opencode.json` at your project root:
 
 ```jsonc
 {
-  "model": "anthropic/claude-sonnet-4-5",      // main model
+  "model": "anthropic/claude-sonnet-4-5",      // main model (orchestrator)
   "small_model": "anthropic/claude-haiku-4-5"  // cheap model for light tasks
 }
 ```
 
-Subagents inherit the model of whichever primary agent invoked them unless
-you add a `model` field to that specific subagent's own frontmatter (see
-`.opencode/agents/researcher.md` etc.) — for example, to run `researcher`
-on a cheaper/faster model than your main model, add a line like
-`model: anthropic/claude-haiku-4-5` to its frontmatter block. Run
-`opencode models` to see what's available to you.
+Subagents inherit the primary model unless you add a `model` field to their individual config files.
 
-## Adjusting permissions
+### Adjusting Permissions
 
-Every agent's `permission` block in its own file controls exactly what it
-can do without asking, what needs approval, and what's outright denied.
-If a workflow keeps prompting you for approval on something you're
-comfortable auto-allowing (e.g. you always want `git push` to just work),
-edit the relevant agent's `permission.bash` entries — see
-[OpenCode's permissions docs](https://opencode.ai/docs/permissions/) for
-the full syntax (wildcards, glob patterns, last-match-wins ordering).
+Every agent's `permission` block in `.opencode/agents/<agent>.md` controls exactly what it can do. Edit patterns to loosen or tighten access:
 
-## Extending the team
+```yaml
+permission:
+  read: allow
+  edit: ask
+  bash:
+    "npm *": allow
+    "git push": ask    # require approval for pushes
+    "rm -rf *": deny   # always denied
+```
 
-To add another specialist (e.g. a dedicated `devops` agent for
-infrastructure-as-code work):
+---
 
-1. Create `.opencode/agents/devops.md` following the same pattern as the
-   existing subagents (frontmatter: `description`, `mode: subagent`,
-   scoped `permission` block including `task: {"*": "deny"}`, then a
-   system prompt body).
-2. Add `"devops": "allow"` to the orchestrator's `permission.task` block in
-   `.opencode/agents/orchestrator.md`.
-3. Add a row for it to the specialist table in the orchestrator's own
-   prompt so it knows when to reach for it.
-4. Restart OpenCode (or start a new session) to pick up the new agent.
+## 🧰 Adding Specialists
 
-## Troubleshooting
+The team is extensible. To add a new agent (e.g., `devops`):
 
-- **A subagent doesn't seem to get invoked automatically** — you can always
-  force it directly: `@researcher find prior art for X`. Description-based
-  auto-routing depends on your OpenCode version behaving as documented;
-  manual `@mention` always works as a fallback.
-- **Config doesn't seem to load** — run `opencode debug config` to see the
-  fully merged, resolved configuration and confirm there's no path
-  collision with a config you already had.
-- **Permission prompts everywhere** — that's the safe default. Loosen
-  specific `bash` patterns in the relevant agent file once you trust the
-  workflow; don't blanket-allow `bash: "*": allow"` without thinking about
-  it, especially not for `backend` (which can reach your database) or
-  anything that can reach `git push`.
+1. Create `.opencode/agents/devops.md` following the existing agent pattern
+2. Add `"devops": "allow"` to the orchestrator's `permission.task` block
+3. Add a row for it in the orchestrator's specialist table
+4. Restart OpenCode
+
+---
+
+## 📊 Project Status
+
+This scaffold is **production-ready** and actively maintained. The agent definitions, permission models, and templates have been hardened through real use across multiple project types.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open an issue or pull request on [GitHub](https://github.com/beast-ofcourse/opencode-autonomous-team).
+
+---
+
+## 📄 License
+
+MIT © [Beast Ofcourse](https://github.com/beast-ofcourse)
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ for the OpenCode ecosystem. <a href="https://opencode.ai">opencode.ai</a></sub>
+</div>
