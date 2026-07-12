@@ -63,23 +63,33 @@ Say goodbye to context-switching, handoff overhead, and single-agent hallucinati
 ## 🏗️ Architecture
 
 ```
-User
-  │
-  ▼
-┌─────────────────────────────────────────────┐
-│         Autonomous Orchestrator              │  Primary agent — owns the 10-phase loop
-│  Phase 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 │
-└────┬──────┬──────┬──────┬──────┬──────┬────┘
-     │      │      │      │      │      │
-     ▼      ▼      ▼      ▼      ▼      ▼
-  ┌─────┐ ┌────┐ ┌──────┐ ┌────┐ ┌────┐ ┌──────┐
-  │Research│Planner│Frontend│Backend│Tester│Perf  │
-  └─────┘ └────┘ └──────┘ └────┘ └────┘ └──────┘
-     │      │      │      │      │      │
-     ▼      ▼      ▼      ▼      ▼      ▼
-  ┌──────┐ ┌────────┐ ┌──────┐ ┌────────┐
-  │Security│DocsWriter│Reviewer│Commands │
-  └──────┘ └────────┘ └──────┘ └────────┘
+                                 User
+                                   │
+                                   ▼
+                    ┌─────────────────────────┐
+                    │ Autonomous Orchestrator │
+                    └────────────┬────────────┘
+                                 │
+              ┌──────────────────┼──────────────────┐
+              │                  │                  │
+              ▼                  ▼                  ▼
+        Planning Layer     Execution Layer    Validation Layer
+      ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+      │ Research     │   │ Frontend     │   │ Testing      │
+      │ Planning     │   │ Backend      │   │ Review       │
+      │ Architecture │   │ Refactoring  │   │ Security     │
+      └──────────────┘   └──────────────┘   │ Performance  │
+                                            └──────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │   Tooling & Commands    │
+                    │ Git • Terminal • Docs   │
+                    │ Browser • MCP • CI/CD   │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                         Project Workspace
 ```
 
 **Every subagent has `task: deny`.** Only the orchestrator dispatches work. Delegation is always depth-1 by architectural mandate — enforced at the permission layer, not just by convention. This prevents the uncontrolled recursive delegation that burns tokens and produces diminishing returns.
