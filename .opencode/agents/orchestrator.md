@@ -274,7 +274,7 @@ Delegate to `planner` to produce `docs/tasks.md` using
 `docs/templates/tasks.template.md`. This is not a TODO list — it is a
 backlog. Every task MUST contain, at minimum:
 
-```
+```text
 ### TASK-XXX: <short title>
 - Phase: <0-9>
 - Status: pending | in-progress | blocked | needs-review | done
@@ -298,7 +298,7 @@ backlog. Every task MUST contain, at minimum:
 include a "Quality gates" section that pre-declares which of Gates A–G
 (from AGENTS.md) apply:
 
-```
+```text
 - Quality gates: A (unit tests), B (lint/typecheck), C (deps),
   E (reviewer), F (docs), G (commit)
 ```
@@ -333,7 +333,7 @@ with user sign-off.
 
 ### Task execution protocol (do these in order, DO NOT skip steps)
 
-```
+```text
 Step 1 — Read: Read task spec, dependency status, architecture doc,
                 existing code conventions.
 
@@ -379,7 +379,11 @@ Step 8 — Self review: Delegate to `reviewer` for an independent review
 Step 9 — Docs: Delegate to `docs-writer` for any documentation updates
           this task requires (README, API docs, CHANGELOG entry).
 
-Step 10 — Quality gate: Write the quality-gates.md entry. Verify each
+Step 10 — Commit: git add (only task-relevant files) + git commit with
+           message format: <type>(<scope>): <description> (TASK-XXX)
+           e.g. "feat(auth): add JWT refresh flow (TASK-014)"
+
+Step 11 — Quality gate: Write the quality-gates.md entry. Verify each
           applicable gate (A–G) with real evidence:
             Gate A: Attach test output (actual pass/fail)
             Gate B: Attach lint/typecheck output (zero errors)
@@ -387,11 +391,7 @@ Step 10 — Quality gate: Write the quality-gates.md entry. Verify each
             Gate D: Attach security review output (or state n/a)
             Gate E: Attach reviewer verdict
             Gate F: Confirm docs/CHANGELOG updated
-            Gate G: Commit with conventional-commit message (TASK-XXX)
-
-Step 11 — Commit: git add (only task-relevant files) + git commit with
-           message format: <type>(<scope>): <description> (TASK-XXX)
-           e.g. "feat(auth): add JWT refresh flow (TASK-014)"
+            Gate G: Verify commit exists with correct format (TASK-XXX)
 
 Step 12 — Update tasks.md: Set status to `done`, update "Evidence of
            completion" field with links to the quality-gates.md entry
@@ -404,7 +404,10 @@ You may batch independent tasks to relevant specialists in parallel ONLY
 when:
 
 1. The tasks have no dependency on each other.
-2. Neither task touches the same files or modules (no merge conflict risk).
+2. Neither task touches the same files or modules (no merge conflict risk),
+   except for orchestrator-owned bookkeeping files (`docs/tasks.md` and
+   `docs/quality-gates.md`) which are exempt from this check — final
+   updates to those files are serialized after parallel execution.
 3. Both tasks' acceptance criteria are fully independent.
 4. The API contract between frontend and backend is already documented and
    stable (no risk of incompatible halves).
@@ -465,8 +468,8 @@ Before considering a phase complete AND before moving to Phase 9:
 4. Record the phase gate results in `docs/quality-gates.md` under a
    Phase-level entry:
 
-   ```
-   ## Phase <N> Gate — <date>
+```text
+## Phase <N> Gate — <date>
    - Full test suite: <pass/fail — output attached>
    - Build: <pass/fail — output attached>
    - Cross-cutting review: <reviewer verdict>
@@ -521,7 +524,7 @@ Do **not** ask "did I finish the task list." Ask:
 
 ### Phase 10 checklist (verify each item with real evidence)
 
-```
+```text
 □ Goal alignment — Every success criterion in project-overview.md is
   verifiably met. Go through each one and confirm with evidence.
 □ Full regression suite passes — Run the entire test suite. Output
@@ -557,7 +560,7 @@ and go back to Phase 6.
 
 When all checks pass, produce a **Production Readiness Report**:
 
-```
+```text
 ## Production Readiness Report
 - Project: <name>
 - Date: <ISO date>

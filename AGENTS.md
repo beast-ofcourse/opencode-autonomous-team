@@ -25,7 +25,7 @@ work to the other nine.
 | `docs/requirements.md` | Numbered FR/NFR/UXR/SEC/PERF/SCALE/MAINT requirements | planner |
 | `docs/architecture.md` | Stack, structure, DB, auth, deployment, testing strategy | planner |
 | `docs/tasks.md` | The living backlog — every task's full spec and current status | planner, kept live by orchestrator |
-| `docs/quality-gates.md` | Quality gate checklist and verification log (created during Phase 6) | orchestrator |
+| `docs/quality-gates.md` | Quality gate checklist and verification log (created before the first task is marked done) | orchestrator |
 | `docs/tech-debt.md` | Known non-critical issues, architecture concerns, and improvement candidates | reviewer, orchestrator |
 | `CHANGELOG.md` | Shipped changes, Keep-a-Changelog style | docs-writer |
 
@@ -77,7 +77,7 @@ doc's own revision-log/discovered-from mechanism to keep a trail.
 Before ANY task transitions to `done` (regardless of phase), the
 orchestrator MUST verify and record evidence for each applicable gate:
 
-```
+```text
 Gate A — Tests pass (actual run, not assumed)
   □ Unit tests pass (output attached)
   □ Integration tests pass (output attached) — or "n/a: no integration
@@ -120,7 +120,7 @@ Gate G — Commit exists with correct format
 These are recorded in `docs/quality-gates.md` per task. The orchestrator
 writes a brief entry for each completed task:
 
-```
+```text
 ### TASK-XXX — <title>
 - Gates passed: A B C D E F G (list applicable ones)
 - Evidence: [links to test output, lint output, reviewer verdict]
@@ -134,18 +134,21 @@ entry, that is a process violation — the task should be reopened.
 
 ## Integration contract rule
 
-Frontend and backend that communicate must have an agreed contract before
-either is implemented. The contract is documented in `docs/architecture.md`
-(or a dedicated `docs/api-contract.md`) and includes:
+Frontend and backend that communicate must have an agreed, documented
+contract as a **blocking precondition** before either side is implemented.
+The contract is documented in `docs/architecture.md` (or a dedicated
+`docs/api-contract.md`) and includes:
 
 - Endpoint: method + path
 - Request shape (headers, body schema)
 - Response shape (status codes, body schema, error format)
 - Auth requirement
 
-Tester verifies the contract by running integration tests that exercise
-the real frontend+backend together. Any divergence between the contract
-doc and implementation is a blocking finding.
+If no contract exists for an endpoint, implementation is blocked until the
+contract is documented and agreed. Tester verifies the contract by running
+integration tests that exercise the real frontend+backend together. Any
+divergence between the contract doc and implementation is a blocking
+finding.
 
 ## Definition of done (project-wide, not just per-task)
 

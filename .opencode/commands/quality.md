@@ -38,8 +38,10 @@ Run the project's formatter in check mode (e.g. `npx prettier --check .`,
 If no formatter is configured, say so explicitly.
 
 ## Check 4 — Tests
-Run the project's test suite (e.g. `npm test`, `pytest`, `go test ./...`,
-`cargo test`, etc.) and report:
+Run the project's test suite in an isolated temporary copy of the
+workspace (e.g. `cp -r . /tmp/opencode-quality-check && cd
+/tmp/opencode-quality-check && npm test`) to preserve the read-only
+contract. Report:
 - Command used
 - Total test count
 - Passed / failed / skipped counts
@@ -49,13 +51,15 @@ Run the project's test suite (e.g. `npm test`, `pytest`, `go test ./...`,
 If no test suite is configured, say so explicitly.
 
 ## Check 5 — Build
-Run the project's build (e.g. `npm run build`, `cargo build`, `go build`,
-etc.) and report:
+Run the project's build in an isolated temporary copy of the workspace
+(e.g. `cp -r . /tmp/opencode-quality-check && cd
+/tmp/opencode-quality-check && npm run build`) and report:
 - Command used
 - Pass/fail status
 - Build output size / artifact info (if available)
 
-If no build command is configured, say so explicitly.
+If no build command is configured, say so explicitly. After each check,
+remove the temporary workspace to avoid accumulating artifacts.
 
 ## Check 6 — Dependency Audit
 Run the project's dependency audit (e.g. `npm audit`, `pip-audit`,
@@ -67,15 +71,19 @@ Run the project's dependency audit (e.g. `npm audit`, `pip-audit`,
 If no audit tool is configured, say so explicitly.
 
 ## Check 7 — Quality Gates File
-Check whether `docs/quality-gates.md` exists and how many task entries
-it has vs how many tasks are in `docs/tasks.md`. Report:
+Check whether `docs/quality-gates.md` exists and validate that every task
+marked `done` in `docs/tasks.md` has a corresponding quality-gate entry
+keyed by TASK-ID. For each done task, verify that applicable gates A–G
+have substantive evidence (not just placeholders or "n/a" without
+justification). Report:
 - Number of quality gate entries
 - Number of tasks marked `done` in tasks.md
-- Any tasks marked `done` without a quality gate entry
+- Any tasks marked `done` without a matching quality gate entry (by TASK-ID)
+- Any quality gate entries with missing or insufficient evidence
 
 ## Report Format
 
-```
+```markdown
 # Quality Health Report
 Project: <name>
 Date: <ISO date>

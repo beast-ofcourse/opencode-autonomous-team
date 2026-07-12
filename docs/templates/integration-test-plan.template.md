@@ -23,7 +23,7 @@ Delete this comment block once the real file is created.
 
 | Type | Tool | What it covers | Frequency |
 |---|---|---|---|
-| Contract test | <e.g. supertest + jest> | Each endpoint returns correct status, shape, and error codes | Every task that touches the endpoint |
+| Contract test | <e.g. supertest + jest> | Each endpoint returns correct status, shape, and error codes — tested by invoking the real frontend client or data layer against the real backend (no mocks on either side) | Every task that touches the endpoint |
 | Integration test | <e.g. supertest + test DB> | Full request lifecycle: route → middleware → handler → DB → response | Per task |
 | E2E flow | <e.g. Playwright> | Critical user flows through real UI + real API | Phase 8 / Phase 10 |
 
@@ -39,7 +39,7 @@ Delete this comment block once the real file is created.
 }
 ```
 
-**Success response (201):**
+**Success response (<success status>):**
 ```json
 {
   "id": "string",
@@ -55,11 +55,11 @@ Delete this comment block once the real file is created.
 **Auth:** None (public endpoint) / Bearer token in Authorization header
 
 **Contract test assertions:**
-- [ ] POST <path> with valid body → 201 + response matches success shape
-- [ ] POST <path> with missing required field → 400 + VALIDATION_ERROR
-- [ ] POST <path> with invalid field type → 400 + VALIDATION_ERROR
-- [ ] POST <path> without auth (if required) → 401 + UNAUTHORIZED
-- [ ] POST <path> with malicious input → 400 (not 500 — no crash)
+- [ ] <method> <path> with valid body → <success status> + response matches success shape
+- [ ] <method> <path> with missing required field → 400 + VALIDATION_ERROR
+- [ ] <method> <path> with invalid field type → 400 + VALIDATION_ERROR
+- [ ] <method> <path> without auth (if required) → 401 + UNAUTHORIZED
+- [ ] <method> <path> with malicious input → 400 (not 500 — no crash)
 
 ## Edge Case Coverage
 

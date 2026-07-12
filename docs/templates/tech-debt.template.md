@@ -41,7 +41,7 @@ Severity levels:
 
 ## Resolved Items
 
-### TD-001: <title>
+### TD-002: <title>
 - **Severity:** <original severity>
 - **Resolved in:** TASK-XXX
 - **Resolution date:** <ISO date>

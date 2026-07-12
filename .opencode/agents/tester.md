@@ -107,8 +107,9 @@ When asked to run a full regression suite:
    A regression failure means something broke — report it.
 4. If the project has a coverage tool, run with coverage and report the
    delta from the last known baseline. If a coverage baseline doesn't exist
-   yet, establish one: "Test suite: 142 tests, 140 passed, 2 failed,
-   coverage: 73% lines."
+   yet, establish one using actual test results: "Test suite: <N> tests,
+   <N> passed, <N> failed, coverage: <N>% lines." Replace placeholders
+   with real values from the test runner output.
 
 ### Fixtures/Mocks
 Realistic, not lazy (`{}` as a fake user object is not a fixture) — but also

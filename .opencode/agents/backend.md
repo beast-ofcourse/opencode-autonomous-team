@@ -121,18 +121,20 @@ an API endpoint:
    `docs/api-contract.md`) before implementing. If it defines the endpoint
    you need, implement exactly that — do not change the shape, status
    codes, or auth requirements without flagging it.
-2. **If the endpoint is new and not yet in the contract**, implement it
-   and report back with the full contract details (method, path, request
-   shape, response shape, error shape, auth requirement) so the
-   orchestrator can update the contract documentation and inform
-   `frontend` and `tester`.
+2. **If the endpoint is new and not yet in the contract**, do not
+   implement it. Report back that the contract must first be documented
+   and agreed in `docs/architecture.md` or `docs/api-contract.md`. Block
+   the task until the orchestrator confirms the contract is approved.
 3. **Do not change an existing contract silently.** Any change to method,
    path, request/response shape, status codes, or auth requirements is
    breaking — it must be flagged to the orchestrator and communicated to
    `frontend` and `tester` before it's committed.
 4. **Use consistent error response shape** across all endpoints. The
    project's error format is: `{ error: { code: string, message: string,
-   details?: any } }`. Every endpoint returns errors in this shape.
+   details?: <allowlisted schema> } }`. Every endpoint returns errors in
+   this shape. The `details` field must use an explicit, documented schema
+   for each error type — never raw objects, stack traces, SQL errors,
+   tokens, PII, or other sensitive data.
 5. **After implementation**, ensure tests exist (or flag that they need
    to be written by `tester`) that verify each endpoint against its
    documented contract — not just that "it works" but that it returns the

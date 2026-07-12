@@ -115,8 +115,9 @@ exact shape:
 - Discovered from: TASK-XXX <only present if this task was spawned by
   another task's findings>
 - Quality gates: A B C D E F G — pre-declare which gates apply
-  (Gates defined in AGENTS.md; usually at minimum A, B, E, F, G for
-  implementation tasks; D for security-sensitive tasks)
+  (Gates defined in AGENTS.md; usually at minimum A, B, C, E, F, G for
+  implementation tasks; D for security-sensitive tasks; C applies
+  whenever new or updated dependencies are involved)
 - Last updated: <date>
 ```
 

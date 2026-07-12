@@ -78,13 +78,12 @@ multiple concerns, use multiple checklists.
 
 ### API / Backend Review Checklist
 
-```
+```text
 □ RESTful (or GraphQL) conventions are followed consistently — not a mix
   of styles unless architecture.md explicitly calls for it.
-□ Status codes are correct and semantic (201 for creation, 204 for
-  deletion, 400 for bad request, 401 for unauthenticated, 403 for
-  unauthorized, 404 for not found, 409 for conflict, 422 for validation
-  failure, 500 for server error — not 200 for everything).
+□ Status codes are correct and follow the endpoint's documented contract
+  — defer to the contract in architecture.md or api-contract.md for each
+  endpoint's status codes rather than applying a one-size-fits-all rule.
 □ Error responses have a consistent shape across all endpoints:
   { error: { code: string, message: string, details?: ... } }
 □ Input validation exists server-side (not just client-side). Every
@@ -107,7 +106,7 @@ multiple concerns, use multiple checklists.
 
 ### Frontend / UI Review Checklist
 
-```
+```text
 □ Component matches the acceptance criteria and behaves correctly.
 □ All states are handled: loading, empty, error, success — not just the
   happy path.
@@ -134,7 +133,7 @@ multiple concerns, use multiple checklists.
 
 ### Data Layer / Schema Review Checklist
 
-```
+```text
 □ Indexes exist on columns used in WHERE, JOIN, ORDER BY, and
   foreign keys — not just primary keys.
 □ Migrations are reversible.
@@ -151,7 +150,7 @@ multiple concerns, use multiple checklists.
 
 ### Auth / Security Review Checklist
 
-```
+```text
 □ Passwords hashed with a modern algorithm (bcrypt/argon2/scrypt — not
   SHA-256, not MD5, not base64 encoding).
 □ Tokens have expiry and are validated on every request (not just at
@@ -170,7 +169,7 @@ multiple concerns, use multiple checklists.
 
 ### Test Review Checklist
 
-```
+```text
 □ Tests actually validate the acceptance criteria in the TASK-ID spec.
 □ Tests cover edge cases: empty, null, boundary, error conditions —
   not just the happy path.
@@ -205,8 +204,10 @@ multiple concerns, use multiple checklists.
 - **Consistency**: does this match the project's existing conventions
   (naming, error handling style, folder placement) rather than introducing
   a one-off pattern?
-- **Changeset hygiene**: does the commit contain ONLY changes related to
-  the TASK-ID? If unrelated changes are mixed in, flag it.
+- **Changeset hygiene**: does the staged diff contain ONLY changes
+  related to the TASK-ID? If unrelated changes are mixed in, flag it.
+  (Note: this check evaluates the staged diff during pre-commit review,
+  not the eventual commit — that is verified by Gate G after commit.)
 
 ---
 
@@ -214,7 +215,7 @@ multiple concerns, use multiple checklists.
 
 For every review, give a clear verdict:
 
-```
+```text
 Verdict: APPROVE | APPROVE WITH NOTES | CHANGES REQUESTED
 
 Checklist used: API | Frontend | Data Layer | Auth/Security | Tests | General
@@ -230,10 +231,13 @@ Summary: <one paragraph — is this ready, and if not, what's the single
 biggest thing blocking it>
 ```
 
-- **APPROVE**: no blocking or major findings; task can be marked `done`.
-- **APPROVE WITH NOTES**: only minor/nit findings; task can be marked
-  `done`, notes become follow-up (tech-debt items for minor issues, new
-  low-priority TASK-ID if worth tracking).
+- **APPROVE**: no blocking or major findings; task may proceed to the
+  remaining quality gates (Gate F — docs, Gate G — commit). Approval
+  alone does not mark the task `done`; the orchestrator must still pass
+  all applicable gates and record them in quality-gates.md.
+- **APPROVE WITH NOTES**: only minor/nit findings; task may proceed to
+  remaining quality gates. Notes become follow-up (tech-debt items for
+  minor issues, new low-priority TASK-ID if worth tracking).
 - **CHANGES REQUESTED**: at least one blocking or major finding; task
   stays `needs-review`/goes back to `in-progress`, routed to the
   responsible specialist with your specific findings attached.

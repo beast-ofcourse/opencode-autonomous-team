@@ -30,19 +30,18 @@ Gate reference:
 ### TASK-001: <title>
 - **Date:** <ISO date>
 - **Gates passed:** A B C E F G
-- **Gate A evidence:** `npm test` — 24 tests, 24 passed, 0 failed
+- **Gate A evidence:** `<command>` — `<N>` tests, `<N>` passed, `<N>` failed
   [output: <link or inline>]
-- **Gate B evidence:** `npm run lint` — 0 errors, 0 warnings
+- **Gate B evidence:** `<command>` — `<N>` errors, `<N>` warnings
   [output: <link or inline>]
-- **Gate C evidence:** No new dependencies added. `npm audit` — 0
-  vulnerabilities.
-- **Gate D evidence:** n/a — task does not touch auth, user input, or
-  data access.
-- **Gate E evidence:** Reviewer verdict: APPROVE
-  [verdict: <link or inline>]
-- **Gate F evidence:** CHANGELOG.md updated. README not affected.
-- **Gate G evidence:** Commit `abc1234` — `feat(auth): implement user
-  registration (TASK-001)`
+- **Gate C evidence:** <status of dependencies — audit passed / new deps
+  justified / no changes>
+- **Gate D evidence:** n/a — <justification, e.g. "task does not touch
+  auth, user input, or data access">
+- **Gate E evidence:** Reviewer verdict: <APPROVE | APPROVE WITH NOTES |
+  CHANGES REQUESTED> [verdict: <link or inline>]
+- **Gate F evidence:** <what docs were updated>
+- **Gate G evidence:** Commit `<sha>` — `<message>` (TASK-001)
 - **Notes:** <any non-standard situations>
 
 ---
