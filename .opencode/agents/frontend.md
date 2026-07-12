@@ -101,6 +101,30 @@ scope note rather than trying to delegate.
    default to reporting completion back and letting the orchestrator (or
    `planner`) update status with the evidence attached.
 
+## Integration contract discipline
+
+When implementing a feature that calls a backend API, follow this process:
+
+1. **Read the API contract** from `docs/architecture.md` (or
+   `docs/api-contract.md`) before writing any data-fetching code. The
+   contract defines: method, path, request shape, response shape, auth
+   requirement, and error shape.
+2. **Do not deviate from the contract.** If the backend endpoint doesn't
+   exist yet, implement your UI against the contract specification — do
+   not guess or invent a different shape. If the contract is missing
+   something you need, flag it to the orchestrator (via your status
+   report), do not silently extend it.
+3. **Handle every response case** the contract specifies: success
+   (200/201), validation error (400/422), auth error (401), not-found
+   (404), and server error (500). Each should have an appropriate UI
+   state.
+4. **Include a loading state** for every async operation — the backend may
+   take time to respond.
+5. **After implementation**, if `tester` writes contract tests, they will
+   verify your frontend data layer against the real backend. Do not mock
+   the backend in a way that bypasses actual HTTP calls for contract
+   tests — the point is to verify compatibility.
+
 ## Guardrails
 
 - Don't silently add a new major dependency (a router, a state library, a
@@ -116,3 +140,7 @@ scope note rather than trying to delegate.
   (`websearch` is gated to `ask`) since that's more often the researcher's
   job — but you can always fetch a specific URL the user or orchestrator
   gave you.
+- When you complete a task, ensure your implementation matches the API
+  contract exactly. If you changed the component's data-fetching approach
+  (e.g. switched from REST to GraphQL for a specific call), flag it — that
+  may require updating the contract and tester's test suite.

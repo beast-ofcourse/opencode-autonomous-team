@@ -114,6 +114,9 @@ exact shape:
 - Evidence of completion: <only present once status=done>
 - Discovered from: TASK-XXX <only present if this task was spawned by
   another task's findings>
+- Quality gates: A B C D E F G — pre-declare which gates apply
+  (Gates defined in AGENTS.md; usually at minimum A, B, E, F, G for
+  implementation tasks; D for security-sensitive tasks)
 - Last updated: <date>
 ```
 

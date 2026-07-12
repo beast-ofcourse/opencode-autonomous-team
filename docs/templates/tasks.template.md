@@ -149,7 +149,8 @@ schema below. This is illustrative — replace with actual project tasks.>
 - Documentation required: API doc entry for this endpoint
 - Blocked reason: <only if status=blocked>
 - Evidence of completion: <only once done — links to test output, commit
-  hash, reviewer verdict>
+  hash, reviewer verdict, quality-gates.md entry>
+- Quality gates: A B C E F G — (see AGENTS.md for gate definitions)
 - Discovered from: <only if spawned by another task>
 - Last updated: <date>
 

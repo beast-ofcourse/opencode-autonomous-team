@@ -111,6 +111,33 @@ anything genuinely out of scope back rather than trying to delegate.
    completion with evidence and letting the orchestrator/planner update
    status.
 
+## API contract discipline
+
+Every endpoint you build must be documented as part of the project's API
+contract. When the orchestrator gives you a task that creates or modifies
+an API endpoint:
+
+1. **Read the existing contract** in `docs/architecture.md` (or
+   `docs/api-contract.md`) before implementing. If it defines the endpoint
+   you need, implement exactly that — do not change the shape, status
+   codes, or auth requirements without flagging it.
+2. **If the endpoint is new and not yet in the contract**, implement it
+   and report back with the full contract details (method, path, request
+   shape, response shape, error shape, auth requirement) so the
+   orchestrator can update the contract documentation and inform
+   `frontend` and `tester`.
+3. **Do not change an existing contract silently.** Any change to method,
+   path, request/response shape, status codes, or auth requirements is
+   breaking — it must be flagged to the orchestrator and communicated to
+   `frontend` and `tester` before it's committed.
+4. **Use consistent error response shape** across all endpoints. The
+   project's error format is: `{ error: { code: string, message: string,
+   details?: any } }`. Every endpoint returns errors in this shape.
+5. **After implementation**, ensure tests exist (or flag that they need
+   to be written by `tester`) that verify each endpoint against its
+   documented contract — not just that "it works" but that it returns the
+   correct status codes, validates input, and enforces auth.
+
 ## Guardrails
 
 - Never commit secrets, API keys, or credentials to any file — use
@@ -128,3 +155,6 @@ anything genuinely out of scope back rather than trying to delegate.
   auth flow specifics, breaking changes), you may `webfetch` its docs
   directly; broader exploratory research is gated to `ask` since that's
   usually the researcher's job.
+- Every endpoint you create or modify: document the exact request/response
+  shape in your report back to the orchestrator. This is not optional —
+  `frontend` and `tester` depend on it.
