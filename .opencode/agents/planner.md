@@ -10,7 +10,7 @@ description: >
   to write application code — it plans, it does not implement.
 mode: subagent
 temperature: 0.2
-steps: 80
+steps: 120
 permission:
   read: allow
   edit: allow

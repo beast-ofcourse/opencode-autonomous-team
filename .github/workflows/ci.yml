@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main, experimental-*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+      - run: npm ci
+      - run: npm test
+        env:
+          CI: true
+      - run: npm run validate-markdown || echo "::warning::md validation not configured"
+        continue-on-error: true

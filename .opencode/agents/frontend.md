@@ -10,7 +10,7 @@ description: >
   database schema, server routes, or auth logic — that's backend.
 mode: subagent
 temperature: 0.15
-steps: 150
+steps: 200
 permission:
   read: allow
   edit: allow
