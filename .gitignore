@@ -27,3 +27,6 @@ coverage/
 
 # OpenCode local state (not the agent/command definitions themselves)
 .opencode/logs/
+
+# Runtime state
+.omo/

@@ -15,7 +15,7 @@
 
   <blockquote>
     <strong>🚀 From "I need a habit tracker" to a deployed, tested, documented web app — without leaving your terminal.</strong><br>
-    <em>Drop the scaffold into any folder, give it a goal, and watch ten AI specialists coordinate, research, design, implement, test, review, and deliver.</em>
+    <em>Drop the scaffold into any folder, give it a goal, and watch eleven AI specialists coordinate, research, design, implement, test, review, harden, and deliver.</em>
   </blockquote>
 
   <br>
@@ -28,7 +28,7 @@
 
 ## ✨ What Is This?
 
-**OpenCode Autonomous Team** is a drop-in agent scaffold for [OpenCode](https://opencode.ai) that assembles a **10-person AI engineering department** inside your terminal. It doesn't just write code — it runs a complete, repeatable software development lifecycle:
+**OpenCode Autonomous Team** is a drop-in agent scaffold for [OpenCode](https://opencode.ai) that assembles an **11-person AI engineering department** inside your terminal. It doesn't just write code — it runs a complete, repeatable software development lifecycle:
 
 ```
 🧠 Orchestrator — the tech lead who never sleeps
@@ -40,7 +40,8 @@
   ├── 📊 Performance    — profiling, bundle analysis, query optimization, caching
   ├── 🔒 Security       — threat modeling, dependency audits, authN/Z review
   ├── 📖 Docs Writer    — README, API docs, changelog, deployment guides
-  └── 👁️ Reviewer       — independent code review, production-readiness gate
+  ├── 👁️ Reviewer       — independent code review, production-readiness gate
+  └── 🛠️ Perfectionist  — fixing security+reviewer findings, inline tracking, production hardening
 ```
 
 Say goodbye to context-switching, handoff overhead, and single-agent hallucinations. This team **researches before building**, **tests before merging**, **reviews before shipping**, and **never fabricates evidence**.
@@ -51,7 +52,7 @@ Say goodbye to context-switching, handoff overhead, and single-agent hallucinati
 
 | Most AI Coding Tools | OpenCode Autonomous Team |
 |---|---|
-| One agent doing everything (and hallucinating confidently) | **10 specialized agents** — each in its own lane, each with scoped permissions |
+| One agent doing everything (and hallucinating confidently) | **11 specialized agents** — each in its own lane, each with scoped permissions |
 | "I wrote some code" = done | **Goal-to-production loop**: research → requirements → architecture → plan → implement → test → review → optimize → document → ship |
 | One-shot prompts, no revision | **Living documents** — `tasks.md` and `project-overview.md` evolve continuously; nothing gets silently rewritten |
 | May or may not test, may or may not verify | **Evidence-gated completion** — every task is `done` only when tests pass, a reviewer signs off, and a real user could achieve the goal |
@@ -73,13 +74,14 @@ Say goodbye to context-switching, handoff overhead, and single-agent hallucinati
               ┌──────────────────┼──────────────────┐
               │                  │                  │
               ▼                  ▼                  ▼
-        Planning Layer     Execution Layer    Validation Layer
-      ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
-      │ Research     │   │ Frontend     │   │ Testing      │
-      │ Planning     │   │ Backend      │   │ Review       │
-      │ Architecture │   │ Refactoring  │   │ Security     │
-      └──────────────┘   └──────────────┘   │ Performance  │
-                                            └──────────────┘
+        Planning Layer     Execution Layer    Validation + Hardening Layer
+      ┌──────────────┐   ┌──────────────┐   ┌──────────────────┐
+      │ Research     │   │ Frontend     │   │ Testing          │
+      │ Planning     │   │ Backend      │   │ Review           │
+      │ Architecture │   │ Refactoring  │   │ Security         │
+      └──────────────┘   └──────────────┘   │ Performance      │
+                                            │ Perfectionist    │
+                                            └──────────────────┘
                                  │
                                  ▼
                     ┌─────────────────────────┐
@@ -127,7 +129,7 @@ opencode
   No budget for paid infra right now — free tier only.
 
 # Review the plan, then...
-# Phase 6-10: Autonomous build, test, review, and ship
+# Phase 6-10: Autonomous build, test, review, harden, and ship
 /build
 
 # Check progress anytime without triggering new work
@@ -144,7 +146,7 @@ opencode
 | Command | Phase | What It Does |
 |---|---|---|
 | `/start-project <goal>` | 0–5 | Ingest goal → research → requirements → architecture → tasks. Stops for your approval before writing code. |
-| `/build` | 6–10 | Execute the full autonomous loop: implement → test → lint → fix → review → optimize → document → commit. Repeats until the goal is met. |
+| `/build` | 6–10 | Execute the full autonomous loop: implement → test → lint → fix → review → optimize → document → commit → harden (2-cycle security+reviewer+perfectionist). Repeats until the goal is met. |
 | `/status` | — | Read-only snapshot of all living docs: what phase you're in, task progress, blockers. |
 | `/replan <change>` | — | Update scope mid-project: regenerate tasks.md without losing history. |
 

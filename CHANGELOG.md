@@ -51,6 +51,11 @@ here, maintained by the `docs-writer` subagent. Format follows
   boundaries, coverage baselines tracked.
 - Smoke test workflow in `tester.md`: user-flow walkthrough per
   project-overview.md's User Flows section.
+- New `perfectionist` subagent: production hardening specialist that
+  closes security and reviewer findings with inline check-mark tracking.
+- Phase 9B: 2-cycle Security → Reviewer → Perfectionist hardening loop,
+  with advancement gates between cycles. Runs after Phase 9 (Final Polish)
+  and before Phase 10 (Goal Validation).
 
 ### Changed
 - Orchestrator steps increased from 400 to 600 to accommodate the
@@ -66,6 +71,7 @@ here, maintained by the `docs-writer` subagent. Format follows
   protocol and quality gate process.
 - Every agent file updated with stronger anti-fabrication, no-silent-
   scope-expansion, and evidence-before-status-change rules.
+- Team expanded from 10 to 11 agents with the addition of `perfectionist`.
 
 ### Fixed
 - Previously, a task could be marked `done` with only the implementing

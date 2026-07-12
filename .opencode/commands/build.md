@@ -50,6 +50,8 @@ After all in-scope tasks reach `done` or explicit user-approved deferral:
   - Return to Phase 6 if the phase gate uncovers issues.
 - **Phase 9** (Final Polish): dead code, unused deps, bundle optimization,
   README/CHANGELOG/deployment guide via `docs-writer`, tech debt review.
+- **Phase 9B** (Production Hardening): 2-cycle security → reviewer →
+  perfectionist loop with advancement gates between cycles.
 - **Phase 10** (Goal Validation):
   - Run the full Phase 10 checklist (see orchestrator prompt).
   - Produce a Production Readiness Report.
