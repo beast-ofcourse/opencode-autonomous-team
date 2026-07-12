@@ -9,8 +9,12 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: "18"
@@ -19,5 +23,5 @@ jobs:
       - run: npm test
         env:
           CI: true
-      - run: npm run validate-markdown || echo "::warning::md validation not configured"
+      - run: npm run validate-markdown
         continue-on-error: true

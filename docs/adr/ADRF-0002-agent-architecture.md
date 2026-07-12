@@ -38,7 +38,7 @@ permission-scoped specialists, hard quality gates, and living documents.
 
 ### Agent structure
 
-One primary agent (the orchestrator) plus ten specialist subagents:
+One primary agent (the orchestrator) plus fifteen specialist subagents:
 
 | Role | File | Scope |
 |---|---|---|
@@ -53,6 +53,11 @@ One primary agent (the orchestrator) plus ten specialist subagents:
 | Docs-Writer | `.opencode/agents/docs-writer.md` | README, API docs, changelog, deployment guides |
 | Reviewer | `.opencode/agents/reviewer.md` | Independent code review, production-readiness verdict |
 | Perfectionist | `.opencode/agents/perfectionist.md` | Fixing security + reviewer findings, production hardening |
+| SWE-Debugger | `.opencode/agents/swe-debugger.md` | Reproduction-first debugging, root-cause analysis, minimal fix |
+| SWE-Testing | `.opencode/agents/swe-testing.md` | Test infrastructure, TDD, property-based tests, fixture factories, CI test config |
+| SWE-Refactor | `.opencode/agents/swe-refactor.md` | Behavior-preserving transformations, codemods, dead code removal |
+| DevOps | `.opencode/agents/devops.md` | CI/CD, Docker, IaC, deployment, secrets management, monitoring |
+| SWE-Security | `.opencode/agents/swe-security.md` | Vulnerability remediation, dependency patching, secret rotation, config hardening |
 
 The orchestrator is the `primary` agent (the one the user talks to). All
 others are `mode: subagent`.
@@ -68,6 +73,7 @@ This means:
 - Orchestrator integrates and proceeds.
 
 No subagent can spawn further subagents. Maximum delegation depth is exactly
+
 1. This is enforced at the permission layer, not just by convention.
 
 ### Permission scoping
@@ -118,7 +124,9 @@ The team maintains a set of living documents that evolve continuously:
 - `docs/tech-debt.md` -- known issues and improvement candidates
 - `CHANGELOG.md` -- shipped changes
 
-Every document has a revision log. Nothing is silently rewritten.
+Each of these living documents has a revision log. Nothing is silently rewritten.
+ADR files, being immutable decision records, do not require revision logs — they
+are updated by superseding an existing ADR with a new one.
 
 ### Lifecycle (Phases 0-10)
 

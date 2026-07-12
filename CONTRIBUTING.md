@@ -28,9 +28,11 @@ Feature requests are welcome. Open a GitHub issue describing:
 3. **Make your changes**, keeping them focused on the issue at hand.
 4. **Follow existing code style and patterns** used throughout the project. Consistency matters more than personal preference.
 5. **Add or update tests** as needed. Run the test suite with:
-   ```
+
+   ```bash
    npm test
    ```
+
    All tests must pass before a PR can be merged.
 6. **Commit your changes** with a clear commit message describing what and why.
 7. **Push your branch** and open a pull request against `main`.

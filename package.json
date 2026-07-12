@@ -1,7 +1,7 @@
 {
   "name": "opencode-autonomous-team",
   "version": "1.1.0",
-  "description": "A 11-agent autonomous engineering team for OpenCode — one orchestrator + ten specialists implementing a full goal-to-production software development lifecycle. The best OpenCode orchestration plugin on GitHub.",
+  "description": "An 11-agent autonomous engineering team for OpenCode — one orchestrator + ten specialists implementing a full goal-to-production software development lifecycle. The best OpenCode orchestration plugin on GitHub.",
   "keywords": [
     "opencode",
     "ai-agents",
@@ -30,6 +30,7 @@
     "validate-markdown": "echo 'no md linter configured'"
   },
   "devDependencies": {
+    "glob": "^10.4.0",
     "js-yaml": "^4.1.0"
   },
   "files": [
@@ -46,19 +47,13 @@
     ".opencode/agents/*.md",
     ".opencode/commands/*.md",
     ".opencode/plugins/*.ts",
+    ".opencode/templates/*.md",
     "docs/templates/*.md",
     "tests/*.js",
     ".github/ISSUE_TEMPLATE/*.md",
     ".github/PULL_REQUEST_TEMPLATE.md",
     "package.json"
   ],
-  "scripts": {
-    "test": "node tests/validate-agents.js"
-  },
-  "devDependencies": {
-    "glob": "^10.4.0",
-    "js-yaml": "^4.1.0"
-  },
   "engines": {
     "node": ">=18.0.0"
   }

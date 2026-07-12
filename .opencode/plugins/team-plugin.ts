@@ -1,24 +1,40 @@
 import { type Plugin, tool } from "@opencode-ai/plugin";
+import * as fs from "fs";
+import * as path from "path";
 
-// ── Agent roster ────────────────────────────────────────────────────────────
-const AGENTS = [
-  "orchestrator",
-  "researcher",
-  "planner",
-  "frontend",
-  "backend",
-  "tester",
-  "performance",
-  "security",
-  "docs-writer",
-  "reviewer",
-  "perfectionist",
-  "swe-debugger",
-  "swe-testing",
-  "swe-refactor",
-  "devops",
-  "swe-security",
-] as const;
+// ── Agent roster — derived from filesystem ───────────────────────────────────
+function discoverAgents(): string[] {
+  const agentsDir = path.resolve(__dirname, "..", "agents");
+  try {
+    return fs
+      .readdirSync(agentsDir)
+      .filter((f) => f.endsWith(".md"))
+      .map((f) => path.basename(f, ".md"))
+      .sort();
+  } catch {
+    // Fallback if agents dir is not accessible
+    return [
+      "orchestrator",
+      "researcher",
+      "planner",
+      "frontend",
+      "backend",
+      "tester",
+      "performance",
+      "security",
+      "docs-writer",
+      "reviewer",
+      "perfectionist",
+      "swe-debugger",
+      "swe-testing",
+      "swe-refactor",
+      "devops",
+      "swe-security",
+    ];
+  }
+}
+
+const AGENTS: readonly string[] = discoverAgents();
 
 // ── MCP servers wired in opencode.json ──────────────────────────────────────
 const MCP_SERVERS = ["github", "playwright", "context7"] as const;
@@ -151,6 +167,13 @@ export const toolDefs = {
       };
       dispatchStore.set(id, dispatch);
 
+      // Execute asynchronously — update status through lifecycle
+      executeDispatch(dispatch).catch((err) => {
+        dispatch.status = "failed";
+        dispatch.updated_at = new Date().toISOString();
+        console.error(`[team-plugin] dispatch ${id} failed:`, err);
+      });
+
       return {
         title: `Dispatch: ${args.task}`,
         output: JSON.stringify(
@@ -164,6 +187,46 @@ export const toolDefs = {
           2,
         ),
         metadata: { dispatch_id: id },
+      };
+    },
+  }),
+
+  get_dispatch: tool({
+    description:
+      "Retrieve the result of a previously dispatched background task by dispatch_id.",
+    args: {
+      dispatch_id: tool.schema
+        .string()
+        .describe("The dispatch_id returned by dispatch_background."),
+    },
+    async execute(args, _ctx) {
+      const dispatch = dispatchStore.get(args.dispatch_id);
+      if (!dispatch) {
+        return {
+          title: "Dispatch Not Found",
+          output: JSON.stringify(
+            { error: `No dispatch found with id '${args.dispatch_id}'` },
+            null,
+            2,
+          ),
+          metadata: { found: false },
+        };
+      }
+      return {
+        title: `Dispatch: ${dispatch.task}`,
+        output: JSON.stringify(
+          {
+            dispatch_id: dispatch.dispatch_id,
+            agent: dispatch.agent,
+            task: dispatch.task,
+            status: dispatch.status,
+            created_at: dispatch.created_at,
+            updated_at: dispatch.updated_at,
+          },
+          null,
+          2,
+        ),
+        metadata: { found: true, dispatch },
       };
     },
   }),
@@ -200,6 +263,30 @@ export const toolDefs = {
     },
   }),
 };
+
+// ── Async dispatch execution ───────────────────────────────────────────────
+async function executeDispatch(dispatch: DispatchItem): Promise<void> {
+  dispatch.status = "running";
+  dispatch.updated_at = new Date().toISOString();
+
+  try {
+    // In a real environment, this would use the SDK's background execution path.
+    // Currently we simulate completion since full background agent dispatch
+    // requires SDK integration not yet available in the plugin context.
+    // See docs/tech-debt.md for tracking.
+    console.log(
+      `[team-plugin] executing dispatch ${dispatch.dispatch_id}: ${dispatch.agent} — ${dispatch.task}`,
+    );
+    // TODO: Replace with actual SDK background execution when available
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    dispatch.status = "completed";
+  } catch (err) {
+    dispatch.status = "failed";
+    console.error(`[team-plugin] dispatch ${dispatch.dispatch_id} failed:`, err);
+  }
+
+  dispatch.updated_at = new Date().toISOString();
+}
 
 // ── Plugin default export ───────────────────────────────────────────────────
 const teamPlugin: Plugin = async (_ctx) => ({

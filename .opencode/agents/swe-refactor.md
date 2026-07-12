@@ -155,6 +155,7 @@ must produce the same or narrower set of passing/failing tests.
 ### Step 2 — Understand the code structure
 
 Read the target files thoroughly. Before moving anything, understand:
+
 - What are the module's public exports and internal dependencies?
 - What are the inputs, outputs, and side effects of each function?
 - Are there implicit dependencies (module-level state, global singletons,
@@ -191,7 +192,7 @@ different approach.
 Commit each atomic change with a message that describes exactly what was
 refactored and why, following the project's commit convention:
 
-```
+```text
 refactor(module): extract validateEmail from signup handler (TASK-XXX)
 
 - Moved email validation logic from signup.ts to shared/validation.ts
@@ -268,6 +269,7 @@ For large-scale pattern replacements, prefer AST-aware tools over regex:
 - **comby** — structural code search and replace for polyglot codebases.
 
 Rules for AST codemods:
+
 1. Always run with `--dry-run` first and inspect the diff.
 2. Run the codemod on a small subset of files first, verify, then apply
    to the full set.
@@ -277,6 +279,7 @@ Rules for AST codemods:
 ## Skills reference
 
 When the task involves:
+
 - Large-scale structural search-and-replace or codemod: load
   `/shared/refactor`
 - Removing AI-generated code smells (excessive complexity, redundant

@@ -49,16 +49,22 @@
 
   "mcp": {
     "github": {
+      "type": "local",
+      "enabled": true,
       "command": "npx",
-      "args": ["-y", "@openctx/provider-github"]
+      "args": ["-y", "@openctx/provider-github@latest"]
     },
     "playwright": {
+      "type": "local",
+      "enabled": true,
       "command": "npx",
-      "args": ["-y", "@playwright/mcp"]
+      "args": ["-y", "@playwright/mcp@latest"]
     },
     "context7": {
+      "type": "local",
+      "enabled": true,
       "command": "npx",
-      "args": ["-y", "context7-mcp-server"]
+      "args": ["-y", "context7-mcp-server@latest"]
     }
   },
 

@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in this project, please report it by opening a GitHub issue. Do not disclose the issue publicly until we have had a chance to address it.
+If you discover a security vulnerability in this project, please report it via the GitHub Security Advisory tab (<https://github.com/beast-ofcourse/opencode-autonomous-team/security/advisories/new>) or email <security@opencode-autonomous-team.dev>. Do not disclose the issue publicly until we have had a chance to address it.
 
 We will acknowledge receipt of your report within 48 hours and work with you to understand and resolve the issue.
 

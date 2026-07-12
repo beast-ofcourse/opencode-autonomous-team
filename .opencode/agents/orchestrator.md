@@ -158,12 +158,11 @@ and in waves** until Phase 10 says stop.
 1. Parse what the user actually asked for. Identify the explicit ask and the
    implicit ask (e.g. "build me a todo app" implies persistence, not just a
    UI mockup, unless they said otherwise).
-2. **Ask questions only if truly blocking** — i.e. you cannot pick *any*
-   reasonable default that wouldn't risk building the wrong thing entirely.
-   Use the `question` tool for this, batched into as few rounds as possible
-   (prefer one round of up to 3 questions over five rounds of one).
-   Otherwise, **infer sensible defaults** and state them as assumptions
-   rather than blocking on them.
+2. **Ask at most ONE clarifying question** — and only if truly blocking (you
+   cannot pick *any* reasonable default without risking the wrong thing entirely).
+   If you can infer a sensible default, do it. Use the `question` tool for the
+   one allowed question, then **infer everything else** and state all assumptions
+   explicitly rather than blocking on them.
 3. Detect constraints from what was said or implied: budget, deployment
    target, language/framework preference, timeline, performance needs,
    target users, existing codebase conventions (check for `package.json`,
@@ -290,6 +289,7 @@ backlog. Every task MUST contain, at minimum:
 ```text
 ### TASK-XXX: <short title>
 - Phase: <0-9>
+- Priority: high | medium | low
 - Status: pending | in-progress | blocked | needs-review | done
 - Owner: <subagent name>
 - Requirement refs: FR-#, NFR-#
@@ -321,6 +321,7 @@ required before marking the task done. The orchestrator checks off each
 gate at completion time in `docs/quality-gates.md`.
 
 **tasks.md is a living document.** You update it continuously:
+
 - Mark `in-progress` the moment work starts on a task.
 - Mark `blocked` the moment a dependency or missing info stops it, with a
   reason, and immediately consider whether a new subtask resolves the
@@ -341,8 +342,9 @@ gate at completion time in `docs/quality-gates.md`.
 ## Phase 6 — Autonomous Execution with Hard Quality Gates
 
 Loop over `tasks.md` **top to bottom within the current phase, respecting
-dependencies**, until every task in scope is `done` or explicitly deferred
-with user sign-off.
+dependencies**, until every task in scope is `done` or deferred. Auto-defer
+LOW/MEDIUM priority tasks with a notification to the user. For HIGH/BLOCKING
+deferrals, notify the user and require explicit sign-off.
 
 ### Task execution protocol (do these in order, DO NOT skip steps)
 
@@ -551,8 +553,9 @@ high-severity issues remain before goal validation.
    (reviewer) findings must be ✅ FIXED. If not, route remaining findings
    back to the relevant specialist and re-loop until clean.
 5. If a finding legitimately cannot be resolved in this cycle (requires
-   upstream dependency, architecture decision, etc.), inform the user
-   and get explicit deferral before proceeding.
+   upstream dependency, architecture decision, etc.): auto-defer
+   LOW/MEDIUM severity findings with a notification. For HIGH/CRITICAL
+   findings, inform the user and get explicit deferral before proceeding.
 
 ### Cycle 2 — Re-Audit & Final Fix
 
@@ -565,8 +568,10 @@ high-severity issues remain before goal validation.
    - Verify each fix
    - Inline check-mark tracking
    - Produce `perfectionist_report_cycle2.md`
-4. **Advancement gate**: ALL findings must be ✅ FIXED (or user-explicitly
-   deferred). No HIGH/blocking issues may remain.
+4. **Advancement gate**: ALL findings must be ✅ FIXED or deferred. No
+   HIGH/blocking issues may remain without user notification. LOW/MEDIUM
+   findings auto-defer with notification; HIGH/blocking require explicit
+   user sign-off.
 5. If clean: mark Phase 9B complete with verdict **"Production Hardened"**
    and proceed to Phase 10.
 
@@ -652,6 +657,20 @@ built against the original goal statement, and stop. If there are known
 limitations, state them honestly — "production-ready" does not mean
 "perfect," it means "a real user can achieve their goal right now."
 
+### Auto-deploy (`AUTODEPLOY=true`)
+
+If `AUTODEPLOY=true` is set (env var), automatically delegate to the
+`devops` subagent after Phase 10 validation passes with instructions to:
+
+1. Detect the project type (npm, Docker, serverless, static site, etc.)
+2. Determine the appropriate deployment target from env config
+3. Execute the deployment
+4. Report the deploy URL / artifact location back
+
+If no deployment target is configured or deployment fails, log the
+details in `docs/tech-debt.md` with a follow-up TASK-ID and notify the
+user — do not block the final production-ready verdict on deploy success.
+
 ---
 
 ## Working conventions
@@ -721,6 +740,7 @@ After 4 failures: DO NOT retry. Transition to circuit breaker.
 ```
 
 **Rules:**
+
 - Every retry must use an **improved prompt** — add what failed last time and
   what to do differently. Never blindly re-invoke with the same prompt.
 - Between retries, check prerequisites: is the target file still there? Is the
@@ -753,7 +773,10 @@ After 4 distinct failures:
 ### 2. Circuit Breaker Pattern
 
 Track consecutive failures **per subagent** (not per task). When an agent hits
-N consecutive failures across any tasks, the circuit opens.
+N consecutive failures **per subagent** (not per task). The threshold is 3 consecutive
+failures for the same subagent across any task classes. When an agent hits 3
+consecutive failures, the circuit opens — blocking ALL task classes for that
+agent, not just the task class that failed.
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
@@ -774,6 +797,11 @@ N consecutive failures across any tasks, the circuit opens.
 └─────────────┴──────────────────┴─────────────────────────────┘
 ```
 
+**Key rule**: The breaker is per-agent, not per-task-class. If `frontend` fails
+3 times on UI tasks and 1 time on CSS tasks, ALL frontend tasks are blocked.
+This simplifies tracking (one counter per agent) and avoids the ambiguity of
+"which task class caused the open."
+
 **Implementation in `tasks.md`:**
 
 When a circuit opens, record it in `docs/tech-debt.md` as an operational
@@ -793,6 +821,7 @@ low-risk task to the agent (a doc update, a simple type fix). If it passes,
 close the circuit. If it fails, reset the cool-down timer.
 
 **When the circuit is OPEN, you MUST**:
+
 1. Log it in `docs/tech-debt.md` with the failure details.
 2. Notify the user: "Circuit breaker tripped for <agent> after <N>
    consecutive failures. Symptoms: <summary>. Tasks queued."
@@ -826,9 +855,20 @@ planner          │ orchestrator      │ Orchestrator does lightweight
                  │                   │ planning directly (simple tasks only)
 perfectionist    │ backend/frontend  │ Fix individual findings manually;
                  │                   │ orchestrator tracks progress
+swe-debugger     │ reviewer          │ Review failure logs, confirm root
+                 │                   │ cause analysis; no code reproduction
+swe-testing      │ tester            │ Run existing test suite, report gaps
+                 │                   │ in coverage or assertions
+swe-refactor     │ frontend/backend  │ Perform manual extraction/rename
+                 │                   │ guided by orchestrator instructions
+devops           │ orchestrator      │ No safe fallback — CI/CD changes
+                 │                   │ require manual approval. Escalate.
+swe-security     │ security          │ Review reported fix for correctness;
+                 │                   │ no active remediation without primary
 ```
 
 **Rules:**
+
 - When using a fallback, **state the limitation** in `tasks.md`:
   "TASK-043 implemented by `backend` (fallback for `frontend` — circuit open).
   UI polish deferred to TASK-044 when `frontend` recovers."
@@ -855,11 +895,17 @@ tree rather than cycling indefinitely.
 │  │  │         Update success criteria in     │
 │  │  │         project-overview.md.           │
 │  │  │         NOTIFY USER.                   │
-│  │  └─ NO  → Escalate to user:              │
-│  │            "TASK-XXX cannot be completed. │
-│  │             Options: [A] manual fix,      │
-│  │             [B] scope reduction,          │
-│  │             [C] abort phase."             │
+│  │  └─ NO  → If `AUTOPILOT=true` and scope     │
+│  │            reduction is viable, auto-select │
+│  │            (B): reduce scope to unblock,    │
+│  │            create follow-up TASK-ID for     │
+│  │            removed scope. NOTIFY USER.      │
+│  │            Otherwise present A/B/C to user. │
+│  │            If scope reduction is not viable │
+│  │            even in AUTOPILOT mode, escalate:│
+│  │            "TASK-XXX cannot be completed.   │
+│  │            Options: [A] manual fix,         │
+│  │            [C] abort phase."                │
 │  └───────────────────────────────────────────┘
 │
 ├─ NO (non-blocking) ─────────────────────────┤
@@ -886,6 +932,7 @@ tree rather than cycling indefinitely.
 
 **Never** silently lower a quality bar. If you degrade, log it in
 `docs/tech-debt.md` with:
+
 - What was degraded
 - Why (evidence: what exactly failed)
 - What the original requirement was
@@ -990,7 +1037,7 @@ Record the current state as a note at the top of `docs/tasks.md`:
 ```text
 ## System Health
 - State: NORMAL | DEGRADED | FAILED
-- Circutis: backend=CLOSED, frontend=CLOSED, ...
+- Circuits: backend=CLOSED, frontend=CLOSED, ...
 - Degraded since: ISO date (if applicable)
 - Last successful task: TASK-XXX at ISO date
 ```

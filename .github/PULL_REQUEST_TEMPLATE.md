@@ -6,7 +6,7 @@ Please include a summary of the change and which issue is fixed. Reference any r
 
 - [ ] Tests added or updated
 - [ ] Documentation updated
-- [ ] Lint passes (`npm test` or equivalent)
+- [ ] Validation passes (`npm test` or equivalent)
 - [ ] Follows existing code patterns and conventions
 
 ## Additional Notes

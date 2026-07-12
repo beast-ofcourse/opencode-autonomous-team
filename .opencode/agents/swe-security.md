@@ -46,7 +46,13 @@ permission:
     "cargo update*": allow
     "cargo add*": allow
     "cargo remove*": allow
-    "gh *": allow
+    "gh *": ask
+    "gh repo view*": allow
+    "gh issue view*": allow
+    "gh pr view*": allow
+    "gh api repos/*/dependabot/alerts*": allow
+    "gh api repos/*/code-scanning*": allow
+    "gh api repos/*/secret-scanning*": allow
     "git status*": allow
     "git diff*": allow
     "git log*": allow
@@ -253,10 +259,11 @@ Review and remediate security-relevant configuration:
   conditionals.
 
 For each config change, verify:
-  - The application starts and responds correctly (run the app or relevant
+
+- The application starts and responds correctly (run the app or relevant
     startup test).
-  - The test suite passes.
-  - If a security header was added, confirm with a quick curl/fetch that the
+- The test suite passes.
+- If a security header was added, confirm with a quick curl/fetch that the
     header is present in the response.
 
 ## OWASP Top 10 remediation playbook
@@ -375,7 +382,7 @@ See **Dependency vulnerability remediation** above.
 
 Follow this workflow for **every** finding (one finding, one iteration):
 
-```
+```text
 1. Reproduce vulnerability
         ↓
 2. Apply minimal fix
@@ -387,7 +394,7 @@ Follow this workflow for **every** finding (one finding, one iteration):
 5. Flag to security for re-review
 ```
 
-### Step 1 — Reproduce vulnerability
+## Step 1 — Reproduce vulnerability
 
 Before touching any code, confirm the vulnerability exists:
 

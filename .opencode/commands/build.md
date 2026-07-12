@@ -39,7 +39,7 @@ After each task completes, check whether a new task needs to be spawned
 from discovered complexity ("Discovered from: TASK-XXX"). If so, create
 it and continue.
 
-After all in-scope tasks reach `done` or explicit user-approved deferral:
+After all in-scope tasks reach `done` or deferred (LOW/MEDIUM auto-deferred with notification; HIGH/BLOCKING require explicit user approval):
 
 - **Phase 7** (Continuous Verification) — already folded into the per-task
   protocol above. Verify that every task has a quality-gates.md entry.

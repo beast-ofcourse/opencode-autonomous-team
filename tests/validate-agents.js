@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-'use strict';
+
 
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
-const glob = require('glob');
+const { globSync } = require('glob');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const AGENTS_DIR = path.join(PROJECT_ROOT, '.opencode', 'agents');
@@ -57,7 +57,7 @@ function escapeRegex(str) {
 
 // ── Phase 1: Parse every agent file ──────────────────────────────────────────
 
-const agentFiles = glob.sync('*.md', { cwd: AGENTS_DIR }).sort();
+const agentFiles = globSync('*.md', { cwd: AGENTS_DIR }).sort();
 
 if (agentFiles.length === 0) {
   report(AGENTS_DIR, 1, 'No agent .md files found in .opencode/agents/');

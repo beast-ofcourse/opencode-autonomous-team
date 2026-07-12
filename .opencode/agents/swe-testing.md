@@ -194,6 +194,7 @@ Configure and enforce coverage gates:
 - Generate coverage reports in multiple formats: `text`, `lcov`, `html`
 - Configure coverage thresholds in config files (not just as a CLI flag)
   so they are checked on every run:
+
   ```jsonc
   // vitest.config.ts
   coverage: {
@@ -207,6 +208,7 @@ Configure and enforce coverage gates:
     },
   }
   ```
+
 - Add a `coverage` script to `package.json` that runs the full suite with
   coverage and fails if thresholds are not met
 - Configure coverage exclusion patterns for generated code, type
@@ -216,9 +218,11 @@ Configure and enforce coverage gates:
 
 Create and maintain CI pipeline definitions for the project's testing needs:
 
-- **GitHub Actions**: `.github/workflows/test.yml` with matrix builds for
-  multiple Node/Python/Rust versions, lint+typecheck+test+coverage steps,
-  and optional e2e stage with services (PostgreSQL, Redis, etc.)
+- **GitHub Actions**: Extend the existing `.github/workflows/ci.yml` with test
+  steps (matrix builds for multiple Node/Python/Rust versions,
+  lint+typecheck+test+coverage), or create `.github/workflows/test.yml` only
+  when no suitable workflow exists. Include optional e2e stage with services
+  (PostgreSQL, Redis, etc.)
 - Configure caching (`actions/cache`, `actions/setup-node` with cache) to
   keep CI fast
 - Add a `ci` script to `package.json` / `Makefile` that lint-checks, type-

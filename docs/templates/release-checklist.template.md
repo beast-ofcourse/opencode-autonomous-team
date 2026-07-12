@@ -18,13 +18,13 @@ Delete this comment block once the real file is created.
 ## Pre-release Verification
 
 ### Code & Versioning
+
 - [ ] All tasks for this release are marked `done` in tasks.md
 - [ ] All done tasks have quality-gates.md entries
 - [ ] Version bump committed (package.json, Cargo.toml, etc.)
-- [ ] Git tag created: `v<major.minor.patch>`
-- [ ] Tag pushed to origin
 
 ### Quality Gates (Re-validation)
+
 - [ ] Full test suite passes (unit + integration + contract)
 - [ ] Coverage baseline maintained or improved
 - [ ] Lint / typecheck / format — zero errors
@@ -32,23 +32,29 @@ Delete this comment block once the real file is created.
   - If issues exist: noted in docs/tech-debt.md with mitigation plan
 
 ### Documentation
+
 - [ ] CHANGELOG.md updated — Unreleased section promoted to versioned entry
 - [ ] README.md up to date (installation instructions, badges, screenshots)
 - [ ] API contract docs in sync with implementation
 - [ ] Deployment guide updated if infrastructure changed
 
 ### Security
+
 - [ ] No unresolved security findings for this release's scope
 - [ ] Auth/AuthZ boundary re-verified if touched
 - [ ] Secrets and credentials confirmed absent from committed code
 
 ### Build & Deployment
+
 - [ ] Production build succeeds (no errors, no warnings treated as errors)
 - [ ] Bundle size within budget (if applicable)
 - [ ] Deployment dry-run on staging environment — passes
 - [ ] Smoke test on staging: critical user flows validated
 
 ### Final Approval
+
+- [ ] Git tag created: `v<major.minor.patch>`
+- [ ] Tag pushed to origin
 - [ ] Reviewer sign-off on release scope
 - [ ] Orchestrator final approval
 - [ ] Release artifacts published / deployed to production
@@ -73,6 +79,12 @@ Delete this comment block once the real file is created.
 - [ ] Tech debt items re-prioritized for next iteration
 
 ---
+
+## Revision Log
+
+| Date | Change | Reason |
+|---|---|---|
+| <date> | Initial release checklist created | Phase 10 release |
 
 ## Notes
 

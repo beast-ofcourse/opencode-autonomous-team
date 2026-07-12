@@ -18,16 +18,19 @@ Delete this comment block once the real file is created.
 ## Conventions
 
 ### Base URL
+
 - **Development:** `http://localhost:<port>/api/v1`
 - **Staging:** `<staging-url>/api/v1`
 - **Production:** `<production-url>/api/v1`
 
 ### Authentication
+
 <Describe auth mechanism, e.g. "All endpoints except /auth/* require a Bearer
 token in the Authorization header. Tokens are JWT signed with RS256, expiry
 24h.">
 
 ### Error Response Format
+
 ```json
 {
   "error": {
@@ -39,6 +42,7 @@ token in the Authorization header. Tokens are JWT signed with RS256, expiry
 ```
 
 ### Standard Error Codes
+
 | Code | HTTP Status | Meaning |
 |---|---|---|
 | `VALIDATION_ERROR` | 400 | Request body failed schema validation |
@@ -62,22 +66,26 @@ token in the Authorization header. Tokens are JWT signed with RS256, expiry
 #### Request
 
 **Headers:**
+
 | Header | Required | Value |
 |---|---|---|
 | Content-Type | Yes | application/json |
 | Authorization | <Yes/No> | Bearer `<token>` |
 
 **Path parameters:**
+
 | Parameter | Type | Description |
 |---|---|---|
 | `<param>` | `<type>` | <description> |
 
 **Query parameters:**
+
 | Parameter | Type | Required | Default | Description |
 |---|---|---|---|---|
 | `<param>` | `<type>` | Yes/No | `<default>` | <description> |
 
 **Request body** (if applicable):
+
 ```json
 {
   "field1": "string (required)",
@@ -91,6 +99,7 @@ token in the Authorization header. Tokens are JWT signed with RS256, expiry
 #### Responses
 
 **<HTTP Status Code> — <description>**
+
 ```json
 {
   "id": "uuid",
@@ -100,6 +109,7 @@ token in the Authorization header. Tokens are JWT signed with RS256, expiry
 ```
 
 **<HTTP Status Code> — <error condition>**
+
 ```json
 {
   "error": {
@@ -110,6 +120,7 @@ token in the Authorization header. Tokens are JWT signed with RS256, expiry
 ```
 
 **Response model** (one table per status code):
+
 | Field | Type | Nullable | Description |
 |---|---|---|---|
 | `id` | string (UUIDv7) | No | Unique resource identifier |
