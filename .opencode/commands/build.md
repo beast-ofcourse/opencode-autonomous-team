@@ -6,10 +6,10 @@ agent: orchestrator
 Begin or resume the **Implementation Dispatch Loop** (Waves 4-N) using the
 current `docs/tasks.md` backlog. $ARGUMENTS
 
-Follow the Dispatch Loop defined in your system prompt: decompose the task
-backlog into parallel work waves, dispatch via `task(run_in_background=true)`,
-wait for `<task-notification>`, collect results via `background_output()`,
-verify quality gates, and decide the next wave.
+Follow the **Dispatch Loop** defined in the orchestrator: decompose the task
+backlog into parallel work waves, dispatch via plugin's `dispatch_background`
+tool, wait, collect via `list_dispatches()` + `dispatch_result()`, verify
+quality gates, and decide the next wave.
 
 ## Dispatch Pattern
 
@@ -17,12 +17,13 @@ For every pending/in-progress task whose dependencies are met:
 
 1. **Group** independent tasks (different files/modules) into a parallel batch.
 2. **Dispatch** all tasks in the batch simultaneously via
-   `task(subagent_type="backend"|"frontend"|"tester"|...,
-        run_in_background=true, prompt="TASK-XXX: <goal, acceptance criteria>")`.
-3. **Wait** — end your response. The system sends `<task-notification>` when
-   each background task completes.
-4. **Collect** — on notification, call `background_output(task_id="bg_...")`
-   to retrieve each subagent's results.
+   `dispatch_background(agent="backend"|"frontend"|"tester"|...,
+    task="TASK-XXX", prompt="<goal, acceptance criteria, file paths>")`.
+3. **Wait** — save all dispatch_ids. End your response. The system sends a
+   `<task-notification>` when dispatches complete.
+4. **Collect** — on the next turn, call `list_dispatches()` to see completed
+   dispatches, then `dispatch_result("dispatch_N")` for each to retrieve
+   the subagent's full output.
 5. **Verify** — check quality gates (A–G). If integration tests are needed,
    dispatch to `tester` in the next wave. If findings need fixing, dispatch
    a new implementation wave.
