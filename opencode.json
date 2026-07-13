@@ -68,6 +68,17 @@
     }
   },
 
+  "categories": {
+    "quick": "anthropic/claude-haiku-4-5",
+    "unspecified-low": "anthropic/claude-haiku-4-5",
+    "unspecified-high": "anthropic/claude-sonnet-4-5",
+    "deep": "anthropic/claude-sonnet-4-5",
+    "ultrabrain": "anthropic/claude-opus-4-5",
+    "visual-engineering": "anthropic/claude-sonnet-4-5",
+    "writing": "anthropic/claude-haiku-4-5",
+    "artistry": "anthropic/claude-opus-4-5"
+  },
+
   "agent": {
     "researcher": {
       "model": "small_model"

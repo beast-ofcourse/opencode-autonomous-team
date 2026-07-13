@@ -9,13 +9,14 @@ scope — but the safety and quality bars below apply to all of them.
 
 ## What this project is
 
-An 11-agent autonomous engineering team running inside OpenCode: one primary
-**orchestrator** and ten specialist **subagents** (researcher, planner,
+A 17-agent autonomous engineering team running inside OpenCode: one primary
+**orchestrator** and 16 specialist **subagents** (researcher, planner,
 frontend, backend, tester, performance, security, docs-writer, reviewer,
-perfectionist).
+perfectionist, swe-debugger, swe-testing, swe-refactor, devops,
+swe-security, ux-designer).
 The orchestrator owns the full goal-to-production loop described in its own
 system prompt (`.opencode/agents/orchestrator.md`) and delegates specialized
-work to the other nine.
+work to the other 16.
 
 ## The living documents (always check these before starting real work)
 

@@ -1,34 +1,67 @@
 <div align="center">
 
-  <h1>🤖 OpenCode Autonomous Team</h1>
+# 🤖 OpenCode Autonomous Team
 
-  <p><strong>A 10-agent AI engineering squad that takes your goal and ships production-ready software — autonomously.</strong></p>
+**Ship production software without writing a single line of code.**
 
-  <p>
-    <a href="https://www.npmjs.com/package/opencode-autonomous-team"><img src="https://img.shields.io/npm/v/opencode-autonomous-team?style=flat-square&logo=npm&color=cb3837" alt="npm version"></a>
-    <a href="https://github.com/beast-ofcourse/opencode-autonomous-team"><img src="https://img.shields.io/github/stars/beast-ofcourse/opencode-autonomous-team?style=flat-square&logo=github" alt="GitHub stars"></a>
-    <a href="https://github.com/beast-ofcourse/opencode-autonomous-team/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="MIT license"></a>
-    <a href="https://opencode.ai"><img src="https://img.shields.io/badge/built_for-OpenCode-6c5ce7?style=flat-square" alt="Built for OpenCode"></a>
-  </p>
+*17 specialized AI agents orchestrate, research, design, implement, test, review, harden, and ship your projects — autonomously.*
 
-  <br>
+<p>
+  <a href="https://www.npmjs.com/package/opencode-autonomous-team"><img src="https://img.shields.io/npm/v/opencode-autonomous-team?style=flat-square&logo=npm&color=cb3837" alt="npm version"></a>
+  <a href="https://github.com/beast-ofcourse/opencode-autonomous-team"><img src="https://img.shields.io/github/stars/beast-ofcourse/opencode-autonomous-team?style=flat-square&logo=github" alt="GitHub stars"></a>
+  <a href="https://github.com/beast-ofcourse/opencode-autonomous-team/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="MIT license"></a>
+  <a href="https://opencode.ai"><img src="https://img.shields.io/badge/built_for-OpenCode-6c5ce7?style=flat-square" alt="Built for OpenCode"></a>
+  <a href="https://github.com/beast-ofcourse/opencode-autonomous-team/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/beast-ofcourse/opencode-autonomous-team/ci.yml?style=flat-square&logo=githubactions&label=CI" alt="CI status"></a>
+</p>
 
-  <blockquote>
-    <strong>🚀 From "I need a habit tracker" to a deployed, tested, documented web app — without leaving your terminal.</strong><br>
-    <em>Drop the scaffold into any folder, give it a goal, and watch eleven AI specialists coordinate, research, design, implement, test, review, harden, and deliver.</em>
-  </blockquote>
-
-  <br>
-
-  <pre>npm install opencode-autonomous-team</pre>
+```bash
+npm install opencode-autonomous-team
+```
 
 </div>
 
 ---
 
-## ✨ What Is This?
+## 🚀 Get Started in 60 Seconds
 
-**OpenCode Autonomous Team** is a drop-in agent scaffold for [OpenCode](https://opencode.ai) that assembles an **11-person AI engineering department** inside your terminal. It doesn't just write code — it runs a complete, repeatable software development lifecycle:
+**Prerequisites:** [OpenCode](https://opencode.ai) + Node.js 18+ + an AI model provider (Anthropic, OpenAI, etc.)
+
+```bash
+# Install the scaffold
+npm install opencode-autonomous-team
+
+# Or clone the repo
+git clone https://github.com/beast-ofcourse/opencode-autonomous-team.git my-project
+cd my-project
+
+# Launch OpenCode and go
+opencode
+```
+
+**Your first command:**
+```bash
+/start-project Build a habit-tracking web app. Users can create habits,
+  check them off daily, and see a streak. Should work on mobile browsers.
+  Free tier only — no paid infra.
+```
+
+The orchestrator takes over from here. It researches, plans, gets your approval, then builds, tests, reviews, hardens, and ships — **end to end, without you writing code.**
+
+| Command | What It Does |
+|---|---|
+| `/start-project <goal>` | Full autopilot: research → requirements → architecture → plan → **stop for your approval** |
+| `/build` | Execute: implement → test → lint → fix → review → optimize → document → harden → ship |
+| `AUTOPILOT=true` | Skip the approval stop — go from goal to shipped in one shot |
+| `/status` | Check progress without triggering new work |
+| `/replan <change>` | Change scope mid-project without losing history |
+
+---
+
+## 🧠 What This Actually Does
+
+Most AI coding tools are a **single agent with a text editor.** They write code, call it done, and hallucinate confidently about things they didn't test.
+
+This project replaces that with **a virtual engineering department**:
 
 ```
 🧠 Orchestrator — the tech lead who never sleeps
@@ -41,23 +74,52 @@
   ├── 🔒 Security       — threat modeling, dependency audits, authN/Z review
   ├── 📖 Docs Writer    — README, API docs, changelog, deployment guides
   ├── 👁️ Reviewer       — independent code review, production-readiness gate
-  └── 🛠️ Perfectionist  — fixing security+reviewer findings, inline tracking, production hardening
+  ├── 🛠️ Perfectionist  — production hardening, fix tracking, 2-cycle audit gauntlet
+  ├── 🐛 SWE Debugger   — reproduction-first debugging, root-cause analysis, minimal fixes
+  ├── 🔬 SWE Testing    — test infrastructure, TDD workflows, property-based testing
+  ├── 🧹 SWE Refactor   — behavior-preserving refactoring, dead code removal
+  ├── 🚀 DevOps         — CI/CD pipelines, Docker, IaC, deployment strategies
+  ├── 🛡️ SWE Security   — vulnerability remediation, dependency hardening
+  └── ♿ UX Designer    — accessibility audits, WCAG compliance, design systems
 ```
 
-Say goodbye to context-switching, handoff overhead, and single-agent hallucinations. This team **researches before building**, **tests before merging**, **reviews before shipping**, and **never fabricates evidence**.
+Each agent is a **specialist with scoped permissions.** The frontend agent can't touch your database schema. The security agent can read everything but can't edit code — its judgment stays independent. No agent can spawn sub-agents (that's the orchestrator's job only), which means **no runaway token chains.**
 
 ---
 
-## 🎯 What Makes This Different
+## 📐 What Makes This Different
 
-| Most AI Coding Tools | OpenCode Autonomous Team |
+### vs Vanilla AI Coding
+
+| Most AI Tools | OpenCode Autonomous Team |
 |---|---|
-| One agent doing everything (and hallucinating confidently) | **11 specialized agents** — each in its own lane, each with scoped permissions |
-| "I wrote some code" = done | **Goal-to-production loop**: research → requirements → architecture → plan → implement → test → review → optimize → document → ship |
-| One-shot prompts, no revision | **Living documents** — `tasks.md` and `project-overview.md` evolve continuously; nothing gets silently rewritten |
-| May or may not test, may or may not verify | **Evidence-gated completion** — every task is `done` only when tests pass, a reviewer signs off, and a real user could achieve the goal |
-| Unlimited delegation chains ($$$) | **Maximum depth-1 delegation** — subagents can't spawn subagents; token runaway engineered out of the architecture |
-| Security as an afterthought | **Security and accessibility are baseline** — server-side validation always required, passwords always hashed, UI always keyboard-operable |
+| One agent doing everything | **17 specialists**, each in its own lane |
+| "I wrote code" = done | **10-phase SDLC**: research → requirements → architecture → plan → implement → test → review → optimize → document → ship |
+| May or may not test | **7 quality gates** (A–G) with **verified evidence** before anything is marked done |
+| Unlimited delegation ($$$) | **Depth-1 delegation** — subagents can't spawn subagents. Token runaway engineered out |
+| Security as an afterthought | **Security is a baseline** — server-side validation always, passwords always hashed, UI always operable |
+| One-shot prompt, no trail | **Living documents** with revision logs — nothing gets silently rewritten |
+
+### vs oh-my-openagent
+
+This project and [oh-my-openagent](https://github.com/beast-ofcourse/oh-my-openagent) (65.6K ★, 3.3M+ downloads) are the two leading orchestration scaffolds for OpenCode. Here's an honest comparison:
+
+| Capability | oh-my-openagent | OpenCode Autonomous Team |
+|---|---|---|
+| **Agent depth** | Flat orchestration | 17 specialists with scoped permissions |
+| **SDLC rigor** | Task-based | 10-phase lifecycle + 7 quality gates with evidence |
+| **Intent routing** | Built-in IntentGate | Plugin-based `intent_classify` |
+| **Model routing** | Built-in | Category-based (8 tiers → optimal model per task) |
+| **Background work** | Built-in parallel dispatch | Plugin-based `dispatch_background` + `dispatch_result` |
+| **Checkpointing** | `boulder.json` | Disk-persisted atomic checkpointing |
+| **Error recovery** | Standard | 5-layer: retry → circuit breaker → fallback → degrade → fail |
+| **AI slop detection** | Not present | `tool.execute.after` hook + `clean_comments` tool |
+| **API contracts** | Optional | **Mandatory** before frontend/backend split |
+| **Team Mode viz** | ✅ Shipped | Stub — on roadmap |
+| **Multi-harness** | ✅ Codex CLI edition | On roadmap |
+| **Security** | Standard | Hard-coded: no recursive delegation, no destructive commands |
+
+**Choose oh-my-openagent if** you want a mature ecosystem with Team Mode visualization and multi-platform support. **Choose this project if** you want rigorous SDLC process, evidence-gated quality, and depth-1 token safety.
 
 ---
 
@@ -80,182 +142,161 @@ Say goodbye to context-switching, handoff overhead, and single-agent hallucinati
       │ Planning     │   │ Backend      │   │ Review           │
       │ Architecture │   │ Refactoring  │   │ Security         │
       └──────────────┘   └──────────────┘   │ Performance      │
-                                            │ Perfectionist    │
-                                            └──────────────────┘
-                                 │
-                                 ▼
+                                             │ Perfectionist    │
+                                             └──────────────────┘
+                                  │
+                                  ▼
                     ┌─────────────────────────┐
                     │   Tooling & Commands    │
                     │ Git • Terminal • Docs   │
                     │ Browser • MCP • CI/CD   │
                     └────────────┬────────────┘
-                                 │
-                                 ▼
-                         Project Workspace
+                                  │
+                                  ▼
+                          Project Workspace
 ```
 
-**Every subagent has `task: deny`.** Only the orchestrator dispatches work. Delegation is always depth-1 by architectural mandate — enforced at the permission layer, not just by convention. This prevents the uncontrolled recursive delegation that burns tokens and produces diminishing returns.
+**Depth-1 delegation is enforced at the permission layer, not by convention.** Every subagent has `task: deny` — only the orchestrator can dispatch work. This is a hard architectural constraint, not a guideline. It prevents the uncontrolled recursive delegation that burns tokens and produces diminishing returns in other agent systems.
 
 ---
 
-## 🚀 Quick Start
+## 🔌 Plugin System
 
-### Prerequisites
+The team runs as a custom OpenCode plugin (`team-plugin.ts`) with 7 tools and 3 event hooks:
 
-- [OpenCode](https://opencode.ai) installed (`curl -fsSL https://opencode.ai/install | bash`)
-- At least one model provider configured ([Anthropic](https://anthropic.com), [OpenAI](https://openai.com), or any supported provider)
-- Node.js 18+ (for npm install)
+### Custom Tools
 
-### Installation
-
-```bash
-# Install the scaffold
-npm install opencode-autonomous-team
-
-# Or clone directly from GitHub
-git clone https://github.com/beast-ofcourse/opencode-autonomous-team.git my-project
-cd my-project
-
-# Start OpenCode in this directory
-opencode
-```
-
-### Your First Session
-
-```bash
-# Option A: Interactive (review plan before building)
-# Phase 0-5: Plan your project with research-backed decisions
-/start-project Build a habit-tracking web app. Users can create habits,
-  check them off daily, and see a streak. Should work on mobile browsers.
-  No budget for paid infra right now — free tier only.
-
-# Review the plan, then...
-# Phase 6-10: Autonomous build, test, review, harden, and ship
-/build
-
-# Option B: One-shot (fully autonomous — plan AND build)
-# Set env vars and run start-project — it skips the review stop
-# and proceeds straight through Phase 0-10
-AUTOPILOT=true AUTODEPLOY=true /start-project Build a habit tracker...
-
-# Check progress anytime without triggering new work
-/status
-
-# Change scope mid-project? No problem.
-/replan We actually need multi-user support, not just single-user local storage.
-```
-
----
-
-## 🎮 Commands
-
-| Command | Phase | What It Does |
-|---|---|---|
-| `/start-project <goal>` | 0–5 | Ingest goal → research → requirements → architecture → tasks. Stops for your approval before writing code (unless `AUTOPILOT=true`). |
-| `/build` | 6–10 | Execute the full autonomous loop: implement → test → lint → fix → review → optimize → document → commit → harden (2-cycle security+reviewer+perfectionist). Repeats until the goal is met. |
-| `/status` | — | Read-only snapshot of all living docs: what phase you're in, task progress, blockers. |
-| `/replan <change>` | — | Update scope mid-project: regenerate tasks.md without losing history. |
-
-You can also just **talk to the orchestrator in plain language** — the commands are shortcuts, not the only interface.
-
----
-
-## 🧩 Use Cases
-
-- **Greenfield projects** — from "I have an idea" to shipped MVP, fully autonomous
-- **Existing codebases** — drop the team into any repo; it detects conventions and works within them
-- **Prototype validation** — get a working, tested prototype in hours instead of days
-- **Technical spikes** — delegate research and proof-of-concept work to the team
-- **Learning accelerator** — watch the team design and build; study the architecture docs and test strategies it produces
-
----
-
-## 🔒 Safety Architecture
-
-This team is designed with deliberate, hard constraints:
-
-| Constraint | How It's Enforced |
+| Tool | What It Does |
 |---|---|
-| **No recursive delegation** | Every subagent has `task: {"*": "deny"}`. Only the orchestrator dispatches, and only depth-1. |
-| **No destructive commands** | `rm -rf`, `sudo`, force-pushes, and database drops are denied at the permission layer. No agent can bypass this — not even the orchestrator. |
-| **No fabricated results** | `tester`, `performance`, and `security` are explicitly instructed to report only what they actually ran/measured/found. |
-| **No silent scope changes** | Every living doc has a revision log. Nothing gets silently rewritten — changes are tracked, dated, and explained. |
-| **No rubber-stamp reviews** | `reviewer` is read-only by design. Its judgment stays independent of whoever wrote the code. |
+| `team_status` | Report phase, agents, version, and MCP config |
+| `dispatch_background` | Spawn a child subagent session — returns `dispatch_id` immediately |
+| `dispatch_result` | Retrieve completed dispatch output from background agents |
+| `get_dispatch` | Check a dispatch's status without blocking |
+| `list_dispatches` | List all dispatches with optional status filter |
+| `intent_classify` | Classify user input into 6 intents (research/implement/investigate/fix/evaluate/open_ended) |
+| `clean_comments` | Scan and remove AI slop comment patterns from files |
+
+### Intent Gate
+
+Every user request runs through `intent_classify` before the orchestrator dispatches:
+- **research** → `researcher`
+- **implement** → `frontend` / `backend`
+- **investigate** → `swe-debugger`
+- **fix** → `swe-debugger` (root cause) → `frontend`/`backend` (fix)
+- **evaluate** → `reviewer`
+- **open_ended** → Phase 0-1 research first
+
+Low-confidence classifications fall back to `open_ended`, triggering research before any code is written — preventing the "start coding the wrong thing" trap.
+
+### Checkpointing
+
+State is persisted atomically to `.opencode/plugins/.checkpoint.json` on every phase change and session compaction. On restart, the team picks up exactly where it left off — phase, completed tasks, blocked items, and active dispatches are all restored. Schema includes a `version` field for future migrations.
+
+### AI Slop Detection
+
+A `tool.execute.after` hook scans every file written by edit tools against 10 regex patterns (`"Certainly!"`, `"I'll "`, `"Let me "`, `"As an AI"`, etc.). Matches are logged as warnings (non-blocking). The `clean_comments` tool provides bulk scan-and-strip with a dry-run mode.
+
+---
+
+## 👥 Team Reference
+
+| Agent | Role |
+|---|---|
+| `orchestrator` | Primary agent — owns full goal-to-production lifecycle |
+| `researcher` | Competitor analysis, OSS prior art, library comparisons, best practices |
+| `planner` | Requirements engineering, architecture design, task breakdown |
+| `frontend` | UI components, state management, accessibility, styling |
+| `backend` | APIs, DB schema/migrations, auth, server logic, integrations |
+| `tester` | Unit, integration, contract, and e2e tests; coverage; fixtures |
+| `performance` | Profiling, bundle analysis, query optimization, caching, load-testing |
+| `security` | Threat modeling, dependency audits, authN/Z review, secrets hygiene |
+| `docs-writer` | README, API docs, architecture docs, changelog, deployment guides |
+| `reviewer` | Independent code review, production-readiness gate |
+| `perfectionist` | Production hardening — fixes findings from security + reviewer |
+| `swe-debugger` | Reproduction-first debugging, root-cause analysis, minimal fixes |
+| `swe-testing` | Test infrastructure, TDD workflows, property-based testing |
+| `swe-refactor` | Behavior-preserving refactoring, dead code removal |
+| `devops` | CI/CD, Docker, IaC, deployment, secrets management |
+| `swe-security` | Vulnerability remediation, dependency patching, secure config |
+| `ux-designer` | Accessibility audits, WCAG compliance, design system review |
 
 ---
 
 ## ⚙️ Configuration
 
-### Changing Models
+### Models
 
 Edit `opencode.json` at your project root:
 
 ```jsonc
 {
-  "model": "anthropic/claude-sonnet-4-5",      // main model (orchestrator)
-  "small_model": "anthropic/claude-haiku-4-5"  // cheap model for light tasks
+  "model": "anthropic/claude-sonnet-4-5",
+  "small_model": "anthropic/claude-haiku-4-5"
 }
 ```
 
-Subagents inherit the primary model unless you add a `model` field to their individual config files.
+**Category routing** maps task complexity to optimal models automatically:
 
-### One-Shot Mode (Fully Autonomous)
+| Category | Model | For |
+|---|---|---|
+| `quick` | Haiku | One-file fixes, config changes |
+| `unspecified-low` | Haiku | Small, well-defined tasks |
+| `unspecified-high` | Sonnet | Multi-file, moderate complexity |
+| `deep` | Opus | Autonomous research + end-to-end |
+| `ultrabrain` | Opus | Hard logic, algorithms, architecture |
+| `visual-engineering` | Sonnet | UI, styling, animation |
+| `writing` | Haiku | Documentation, changelogs |
+| `artistry` | Opus | Creative, unconventional |
 
-Set environment variables to run the full pipeline without stopping:
+### One-Shot Mode
 
 ```bash
-# Plan + implement + deploy in one shot — no interactive stops
+# Plan + build + deploy — no stops
 AUTOPILOT=true AUTODEPLOY=true /start-project Build a habit tracker...
-
-# Copy .env.example to .env to persist these settings across sessions
-cp .env.example .env
 ```
 
-| Variable | Effect |
-|---|---|
-| `AUTOPILOT=true` | Skips the Phase 5 review stop — `/start-project` proceeds directly into Phase 6 execution after planning |
-| `AUTODEPLOY=true` | After Phase 10 validation, delegates deployment to the `devops` agent. Non-blocking — deployment failure doesn't block the production-ready verdict. |
+Without these env vars, the team stops after Phase 5 (planning) for your review before writing any code.
 
-Without these variables, the team runs in interactive mode: `/start-project` stops after Phase 5 for your plan review, and HIGH/BLOCKING task deferrals require your sign-off (LOW/MEDIUM tasks auto-defer with notification).
+### Adding Specialists
 
----
-
-## 🧰 Adding Specialists
-
-Every agent's `permission` block in `.opencode/agents/<agent>.md` controls exactly what it can do. Edit patterns to loosen or tighten access:
-
-```yaml
-permission:
-  read: allow
-  edit: ask
-  bash:
-    "npm *": allow
-    "git push": ask    # require approval for pushes
-    "rm -rf *": deny   # always denied
-```
-
----
-
-## 🧰 Adding Specialists
-
-The team is extensible. To add a new agent (e.g., `devops`):
-
-1. Create `.opencode/agents/devops.md` following the existing agent pattern
-2. Add `"devops": "allow"` to the orchestrator's `permission.task` block
-3. Add a row for it in the orchestrator's specialist table
+1. Create `.opencode/agents/<name>.md` following the existing agent pattern
+2. Add `"<name>": "allow"` to the orchestrator's `permission.task` block
+3. Add a row in the orchestrator's specialist table
 4. Restart OpenCode
+
+---
+
+## 🔒 Safety Architecture
+
+| Constraint | How It's Enforced |
+|---|---|
+| **No recursive delegation** | Every subagent has `task: deny`. Orchestrator only, depth-1 max. |
+| **No destructive commands** | `rm -rf`, `sudo`, force-pushes, DB drops denied at permission layer. No agent can bypass this. |
+| **No fabricated results** | `tester`, `performance`, `security` report only what they actually ran. |
+| **No silent scope changes** | Every living doc has a revision log. |
+| **No rubber-stamp reviews** | `reviewer` is read-only. Its judgment stays independent. |
+
+---
+
+## 🧩 Use Cases
+
+- **Greenfield projects** — from idea to shipped MVP, fully autonomous
+- **Existing codebases** — drop the team anywhere; it detects conventions and works within them
+- **Prototype validation** — working, tested prototype in hours, not days
+- **Technical spikes** — delegate research and proof-of-concept work to the team
+- **Learning accelerator** — watch the team design and build; study the architecture docs and test strategies it produces
 
 ---
 
 ## 📊 Project Status
 
-This scaffold is **production-ready** and actively maintained. The agent definitions, permission models, and templates have been hardened through real use across multiple project types.
+**Production-ready and actively maintained.** The agent definitions, permission model, living docs system, and plugin architecture have been hardened through real use across multiple project types. 16 specialist agents + orchestrator, 7 custom plugin tools, 3 event hooks, disk-persisted checkpointing, category-based model routing, and a 10-phase SDLC with 7 quality gates.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please open an issue or pull request on [GitHub](https://github.com/beast-ofcourse/opencode-autonomous-team).
+Contributions welcome! Open an issue or pull request on [GitHub](https://github.com/beast-ofcourse/opencode-autonomous-team).
 
 ---
 
@@ -266,5 +307,5 @@ MIT © [Beast Ofcourse](https://github.com/beast-ofcourse)
 ---
 
 <div align="center">
-  <sub>Built with ❤️ for the OpenCode ecosystem. <a href="https://opencode.ai">opencode.ai</a></sub>
+  <sub>Built for the <a href="https://opencode.ai">OpenCode</a> ecosystem.</sub>
 </div>
