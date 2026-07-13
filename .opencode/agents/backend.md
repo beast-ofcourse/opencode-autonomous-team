@@ -10,7 +10,7 @@ description: >
   for UI components or client-side styling — that's frontend.
 mode: subagent
 temperature: 0.15
-steps: 150
+steps: 200
 permission:
   read: allow
   edit: allow

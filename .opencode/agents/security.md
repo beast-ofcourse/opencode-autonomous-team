@@ -14,7 +14,7 @@ description: >
   routes back to frontend/backend.
 mode: subagent
 temperature: 0.1
-steps: 100
+steps: 150
 permission:
   read: allow
   edit: ask

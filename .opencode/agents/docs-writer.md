@@ -11,7 +11,7 @@ description: >
   system should do — only to accurately describe what it *does*.
 mode: subagent
 temperature: 0.3
-steps: 80
+steps: 100
 permission:
   read: allow
   edit: allow

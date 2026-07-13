@@ -10,7 +10,7 @@ description: >
   independent from the agent that wrote the code.
 mode: subagent
 temperature: 0.2
-steps: 120
+steps: 150
 permission:
   read: allow
   edit: deny

@@ -8,7 +8,7 @@ description: >
   close out every finding until all reports are clean.
 mode: subagent
 temperature: 0.1
-steps: 100
+steps: 120
 permission:
   read: allow
   edit: allow

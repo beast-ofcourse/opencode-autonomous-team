@@ -123,6 +123,7 @@ opencode
 ### Your First Session
 
 ```bash
+# Option A: Interactive (review plan before building)
 # Phase 0-5: Plan your project with research-backed decisions
 /start-project Build a habit-tracking web app. Users can create habits,
   check them off daily, and see a streak. Should work on mobile browsers.
@@ -131,6 +132,11 @@ opencode
 # Review the plan, then...
 # Phase 6-10: Autonomous build, test, review, harden, and ship
 /build
+
+# Option B: One-shot (fully autonomous — plan AND build)
+# Set env vars and run start-project — it skips the review stop
+# and proceeds straight through Phase 0-10
+AUTOPILOT=true AUTODEPLOY=true /start-project Build a habit tracker...
 
 # Check progress anytime without triggering new work
 /status
@@ -145,7 +151,7 @@ opencode
 
 | Command | Phase | What It Does |
 |---|---|---|
-| `/start-project <goal>` | 0–5 | Ingest goal → research → requirements → architecture → tasks. Stops for your approval before writing code. |
+| `/start-project <goal>` | 0–5 | Ingest goal → research → requirements → architecture → tasks. Stops for your approval before writing code (unless `AUTOPILOT=true`). |
 | `/build` | 6–10 | Execute the full autonomous loop: implement → test → lint → fix → review → optimize → document → commit → harden (2-cycle security+reviewer+perfectionist). Repeats until the goal is met. |
 | `/status` | — | Read-only snapshot of all living docs: what phase you're in, task progress, blockers. |
 | `/replan <change>` | — | Update scope mid-project: regenerate tasks.md without losing history. |
@@ -193,7 +199,28 @@ Edit `opencode.json` at your project root:
 
 Subagents inherit the primary model unless you add a `model` field to their individual config files.
 
-### Adjusting Permissions
+### One-Shot Mode (Fully Autonomous)
+
+Set environment variables to run the full pipeline without stopping:
+
+```bash
+# Plan + implement + deploy in one shot — no interactive stops
+AUTOPILOT=true AUTODEPLOY=true /start-project Build a habit tracker...
+
+# Copy .env.example to .env to persist these settings across sessions
+cp .env.example .env
+```
+
+| Variable | Effect |
+|---|---|
+| `AUTOPILOT=true` | Skips the Phase 5 review stop — `/start-project` proceeds directly into Phase 6 execution after planning |
+| `AUTODEPLOY=true` | After Phase 10 validation, delegates deployment to the `devops` agent. Non-blocking — deployment failure doesn't block the production-ready verdict. |
+
+Without these variables, the team runs in interactive mode: `/start-project` stops after Phase 5 for your plan review, and HIGH/BLOCKING task deferrals require your sign-off (LOW/MEDIUM tasks auto-defer with notification).
+
+---
+
+## 🧰 Adding Specialists
 
 Every agent's `permission` block in `.opencode/agents/<agent>.md` controls exactly what it can do. Edit patterns to loosen or tighten access:
 
