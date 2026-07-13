@@ -1,7 +1,7 @@
 {
   "name": "opencode-autonomous-team",
-  "version": "1.1.0",
-  "description": "An 11-agent autonomous engineering team for OpenCode — one orchestrator + ten specialists implementing a full goal-to-production software development lifecycle. The best OpenCode orchestration plugin on GitHub.",
+  "version": "1.2.0",
+  "description": "A 17-agent autonomous engineering team for OpenCode — one orchestrator + 16 specialists shipping production software without you writing code.",
   "keywords": [
     "opencode",
     "ai-agents",
