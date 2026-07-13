@@ -137,10 +137,14 @@ Every interaction you have follows this pattern:
    │
    ▼
 3. STOP. End your response. Do NOT continue.
-   If you used task(run_in_background=true), the system sends
-   <task-notification> when each background task completes.
-   If you used dispatch_background(), check completion via
-   get_dispatch(dispatch_id) or list_dispatches() on the next turn.
+   The Ralph Loop / ultrawork continuation mechanism re-invokes you
+   automatically. On re-invocation, check completion:
+     → If you used dispatch_background():
+          list_dispatches() to see which dispatches finished.
+          If any are still "running", end response and wait again.
+          (The loop mechanism will re-invoke you.)
+     → If you used task(run_in_background=true):
+          <task-notification> fires automatically.
    │
    ▼
 4. COLLECT results from each completed dispatch:
@@ -222,7 +226,9 @@ Low-confidence: treat as `open_ended` — research before dispatching.
 
 ## Category-Based Model Routing
 
-When dispatching via `task()`, match category to task nature:
+When dispatching via `dispatch_background()` or `task()`, match the
+subagent (or `agent` parameter) to the task's nature. For `task()`,
+the `category` parameter routes to an optimized model:
 
 | Task Characteristics | Recommended Category | Notes |
 |---|---|---|
@@ -455,11 +461,13 @@ Dispatch Final:
             Any remaining concerns? Verdict: APPROVED or NOT READY.")
 ```
 
-Also verify yourself:
-- Build the project (`npm run build`, etc.) — capture output
-- Check lint/typecheck/format globally
-- Confirm all living docs are current
-- Confirm no secrets committed
+Then dispatch any remaining verification checks:
+- Build verification → `devops` agent
+- Lint/typecheck/format → `tester` agent
+- Living docs audit → `reviewer` agent
+- Secrets scan → `security` agent
+
+Collect all results and synthesize into the report below.
 
 Produce **Production Readiness Report**:
 - Goal alignment (all success criteria met?)
