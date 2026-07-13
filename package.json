@@ -1,6 +1,6 @@
 {
   "name": "opencode-autonomous-team",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A 17-agent autonomous engineering team for OpenCode — one orchestrator + 16 specialists shipping production software without you writing code.",
   "keywords": [
     "opencode",
