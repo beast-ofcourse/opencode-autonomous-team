@@ -11,10 +11,10 @@ description: >
   use this agent to write or modify application code.
 mode: subagent
 temperature: 0.4
-steps: 60
+steps: 100
 permission:
   read: allow
-  edit: deny
+  edit: allow
   bash: deny
   glob: allow
   grep: allow

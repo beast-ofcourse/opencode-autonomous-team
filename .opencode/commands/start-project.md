@@ -20,7 +20,8 @@ prompt:
 6. **Phase 5** — Delegate to `planner` for the initial `docs/tasks.md`
    backlog, broken into concrete, traceable, well-scoped tasks.
 
-Do not begin Phase 6 (execution) yet — stop after Phase 5 and present a
-summary of the goal statement, key architecture decisions, and the
-resulting task count by phase, so the user can review before you start
-building.
+If `AUTOPILOT=true` is set (via env var), skip the Phase 5
+stop and proceed directly into Phase 6 (execution). Otherwise: stop after
+Phase 5 and present a summary of the goal statement, key architecture
+decisions, and the resulting task count by phase, so the user can review
+before you start building.

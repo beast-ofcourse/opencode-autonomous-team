@@ -48,8 +48,64 @@
   ],
 
   "mcp": {
+    "github": {
+      "type": "local",
+      "enabled": true,
+      "command": "npx",
+      "args": ["-y", "@openctx/provider-github@latest"]
+    },
+    "playwright": {
+      "type": "local",
+      "enabled": true,
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "context7": {
+      "type": "local",
+      "enabled": true,
+      "command": "npx",
+      "args": ["-y", "context7-mcp-server@latest"]
+    }
+  },
+
+  "categories": {
+    "quick": "anthropic/claude-haiku-4-5",
+    "unspecified-low": "anthropic/claude-haiku-4-5",
+    "unspecified-high": "anthropic/claude-sonnet-4-5",
+    "deep": "anthropic/claude-sonnet-4-5",
+    "ultrabrain": "anthropic/claude-opus-4-5",
+    "visual-engineering": "anthropic/claude-sonnet-4-5",
+    "writing": "anthropic/claude-haiku-4-5",
+    "artistry": "anthropic/claude-opus-4-5"
   },
 
   "agent": {
+    "researcher": {
+      "model": "small_model"
+    },
+    "docs-writer": {
+      "model": "small_model"
+    },
+    "planner": {
+      "model": "small_model"
+    },
+    "perfectionist": {
+      "steps": 120
+    },
+    "swe-debugger": {
+      "steps": 150
+    },
+    "swe-testing": {
+      "steps": 150
+    },
+    "swe-refactor": {
+      "steps": 150
+    },
+    "devops": {
+      "steps": 150
+    },
+    "swe-security": {
+      "steps": 150
+    }
   }
 }
