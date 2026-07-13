@@ -19,8 +19,10 @@ For every pending/in-progress task whose dependencies are met:
 2. **Dispatch** all tasks in the batch simultaneously via
    `dispatch_background(agent="backend"|"frontend"|"tester"|...,
     task="TASK-XXX", prompt="<goal, acceptance criteria, file paths>")`.
-3. **Wait** — save all dispatch_ids. End your response. The system sends a
-   `<task-notification>` when dispatches complete.
+3. **Wait** — save all dispatch_ids. End your response. The Ralph Loop /
+   ultrawork continuation mechanism re-invokes you. On re-invocation, call
+   `list_dispatches()` to see which dispatches completed. If any are still
+   "running", end your response and wait again.
 4. **Collect** — on the next turn, call `list_dispatches()` to see completed
    dispatches, then `dispatch_result("dispatch_N")` for each to retrieve
    the subagent's full output.
