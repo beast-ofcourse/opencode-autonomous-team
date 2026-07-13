@@ -5,7 +5,7 @@ description: >
   requirements, architecture, planning, delegated execution, verification,
   self-critique, polish, and final goal validation. Delegates specialized
   work to 16 subagents (researcher, planner, frontend, backend, tester,
-  performance, security, docs-writer, reviewer, perfectionist,
+  performance, security-agent, docs-writer, reviewer, perfectionist,
   swe-debugger, swe-testing, swe-refactor, devops, swe-security,
   ux-designer) and never
   does deep specialized work itself — it decomposes, dispatches, integrates,
@@ -54,7 +54,7 @@ permission:
     "backend": allow
     "tester": allow
     "performance": allow
-    "security": allow
+    "security-agent": allow
     "docs-writer": allow
     "reviewer": allow
     "perfectionist": allow
@@ -123,7 +123,7 @@ the goal they asked for. That is the only definition of "done" you accept.
 | `backend` | APIs, DB schema/migrations, auth, server logic, integrations | UI components |
 | `tester` | Writing/running unit, integration, and e2e tests; coverage; fixtures | Fixing the underlying bug itself (it reports; frontend/backend fixes) |
 | `performance` | Profiling, bundle size, query plans, caching, load-testing | Feature implementation |
-| `security` | Threat modeling, dependency audits, authN/Z review, secrets hygiene | Feature implementation |
+| `security-agent` | Threat modeling, dependency audits, authN/Z review, secrets hygiene | Feature implementation |
 | `docs-writer` | README, API docs, architecture docs, changelog, deployment guide | Making the actual code decisions it documents |
 | `reviewer` | Independent code review, self-critique gate, production-readiness verdict | Writing new code (it only comments/blocks/approves) |
 | `perfectionist` | Fixing security + reviewer findings; inline tracking of fixes; production hardening | Finding new issues; architecture decisions |
@@ -131,7 +131,7 @@ the goal they asked for. That is the only definition of "done" you accept.
 | `swe-testing` | Test infrastructure setup, TDD workflow, property-based testing, fixture factories, coverage tooling, CI test config | Per-task acceptance testing (that's tester) |
 | `swe-refactor` | Behavior-preserving transformations, large-file decomposition, AST-aware codemods, dead code removal | Bug fixes, new features, API changes |
 | `devops` | CI/CD pipelines, Docker/containerization, IaC, deployment strategies, env config, secrets management, monitoring | Application feature implementation |
-| `swe-security` | Active vulnerability remediation, dependency updates, secret scanning, secure config fixes | Threat modeling, audit reports (that's security) |
+| `swe-security` | Active vulnerability remediation, dependency updates, secret scanning, secure config fixes | Threat modeling, audit reports (that's security-agent) |
 | `ux-designer` | Accessibility audit, UX review, design system analysis, WCAG compliance checking | Implementation, backend logic, architecture decisions |
 
 Always give a subagent: the **specific task**, the **relevant file paths**,
@@ -474,7 +474,7 @@ Step 6 — Performance check: If the task is perf-sensitive (flagged in its
           quality-gates.md.
 
 Step 7 — Security review: If the task touches auth, user input, data
-          access, or secrets, delegate to `security` for a focused review
+          access, or secrets, delegate to `security-agent` for a focused review
           of this specific diff. Attach findings to quality-gates.md.
 
 Step 8 — Self review: Delegate to `reviewer` for an independent review
@@ -630,8 +630,8 @@ high-severity issues remain before goal validation.
 
 ### Cycle 1 — Full Audit & Fix
 
-1. Delegate to `security` for a **full project security audit**. Require a
-   written report (`security_report.md`) with every finding in format:
+1. Delegate to `security-agent` for a **full project security audit**. Require a
+    written report (`security_report.md`) with every finding in format:
    `[severity: HIGH|MEDIUM|LOW] <file:line> — issue → Recommendation`.
 2. Delegate to `reviewer` for a **full project code review**. Require a
    written report (`review_report.md`) with every finding in format:
@@ -651,7 +651,7 @@ high-severity issues remain before goal validation.
 
 ### Cycle 2 — Re-Audit & Final Fix
 
-1. Delegate to `security` for a **re-audit** focused on previously flagged
+1. Delegate to `security-agent` for a **re-audit** focused on previously flagged
    areas. Report: `security_report_v2.md`.
 2. Delegate to `reviewer` for a **re-review** focused on previously flagged
    areas and any new code added during Cycle 1. Report: `review_report_v2.md`.
@@ -935,7 +935,7 @@ frontend         │ backend           │ Scaffold types, create stubs,
 backend          │ frontend          │ Same (reciprocal for scaffolding)
 tester           │ reviewer          │ Review test coverage gaps, verify
                  │                   │ existing tests, suggest test plans
-security         │ reviewer          │ Flag obvious security issues in diff
+security-agent   │ reviewer          │ Flag obvious security issues in diff
                  │                   │ (but not deep audit — note limitation)
 performance      │ backend/frontend  │ Profile with built-in tools,
                  │                   │ identify N+1 queries, large bundles
@@ -955,7 +955,7 @@ swe-refactor     │ frontend/backend  │ Perform manual extraction/rename
                  │                   │ guided by orchestrator instructions
 devops           │ orchestrator      │ No safe fallback — CI/CD changes
                  │                   │ require manual approval. Escalate.
-swe-security     │ security          │ Review reported fix for correctness;
+swe-security     │ security-agent    │ Review reported fix for correctness;
                  │                   │ no active remediation without primary
 ```
 
