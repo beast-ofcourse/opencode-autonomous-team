@@ -1,5 +1,5 @@
 ---
-description: One-command ultrawork mode — runs the full Phase 0-10 pipeline autonomously from goal to production-ready. Plan + build + test + harden + validate in one shot. $ARGUMENTS
+description: One-command ultrawork mode — runs the full Wave 0 through Final Validation pipeline autonomously from goal to production-ready. Plan + build + test + harden + validate in one shot. $ARGUMENTS
 agent: orchestrator
 ---
 
@@ -21,8 +21,10 @@ input unless explicitly required by a gate:
 - **Wave 0** — Understand goal. Write `docs/project-overview.md` §Goal.
 - **Wave 1** — Research. Dispatch `researcher` (parallel topics).
   Produce `docs/research.md`.
-- **Wave 2** — Requirements + Architecture. Dispatch `planner`.
-  Produce `docs/requirements.md`, `docs/architecture.md`.
+- **Wave 2a** — Requirements. Dispatch `planner`.
+  Produce `docs/requirements.md`.
+- **Wave 2b** — Architecture. Dispatch `planner` (sequential — read docs/requirements.md first).
+  Produce `docs/architecture.md`.
 - **Wave 3** — Task Planning. Dispatch `planner`. Produce `docs/tasks.md`.
 - **Waves 4-N** — Implementation. Dispatch `backend`/`frontend`/`tester`
   in parallel batches per wave. See the Dispatch Loop section for the exact
@@ -33,15 +35,16 @@ input unless explicitly required by a gate:
   `swe-refactor`.
 - **Wave N+3** — Production Hardening (2 cycles). Security → Reviewer →
   Perfectionist per cycle.
-- **Final Wave** — Validation. Run Phase 10 checklist. Produce Production
-  Readiness Report.
+- **Final Wave** — Final Validation. Run the production readiness checklist. Produce
+  Production Readiness Report.
 
 If `AUTOPILOT=true` (env var): skip Wave 3 user review stop.
-If `AUTODEPLOY=true` (env var): attempt deployment after validation.
+If `AUTODEPLOY=true` (env var): delegate deployment to `devops` agent (non-blocking — deployment failure does not change the production-ready verdict).
 
 ## Reporting
 
-At each major wave transition, report:
+At each wave transition, report:
+
 - Which waves completed and what artifacts were produced
 - Task completion status with quality gate results
 - Any blockers or discovered scope overhang

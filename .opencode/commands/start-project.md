@@ -9,8 +9,8 @@ Run the Dispatch Loop through Waves 0-3:
 
 - **Wave 0**: Understand goal → `docs/project-overview.md`
 - **Wave 1**: Research → `researcher` (parallel topics) → `docs/research.md`
-- **Wave 2**: Requirements + Architecture → `planner` → `docs/requirements.md`,
-  `docs/architecture.md`
+- **Wave 2a**: Requirements → `planner` → `docs/requirements.md`
+- **Wave 2b**: Architecture → `planner` (sequential, after Wave 2a) → `docs/architecture.md`
 - **Wave 3**: Task Planning → `planner` → `docs/tasks.md`
 
 If `AUTOPILOT=true` (env var): skip user review after Wave 3 and proceed
