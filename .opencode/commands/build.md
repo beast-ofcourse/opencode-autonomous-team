@@ -25,7 +25,9 @@ For every pending/in-progress task whose dependencies are met:
    "running", end your response and wait again.
 4. **Collect** — on the next turn, call `list_dispatches()` to see completed
    dispatches, then `dispatch_result("dispatch_N")` for each to retrieve
-   the subagent's full output.
+   the available output. Note: completed status means the dispatch mechanism
+   finished, not necessarily that all child-session output is written — poll
+   or read the child session separately for fully confirmed output.
 5. **Verify** — check quality gates (A–G). If integration tests are needed,
    dispatch to `tester` in the next wave. If findings need fixing, dispatch
    a new implementation wave.
@@ -36,18 +38,19 @@ For every pending/in-progress task whose dependencies are met:
 After each wave, check whether new tasks need to be spawned from discovered
 complexity ("Discovered from: TASK-XXX"). If so, create them and continue.
 
-## Post-Implementation Phases (after all tasks done):
+## Post-Implementation Waves (after all tasks done)
 
 - **Integration + Review** — dispatch `tester` (regression), `reviewer`
   (cross-cutting), `security-agent` (audit) in parallel.
 - **Polish** — dispatch `performance`, `docs-writer`, `swe-refactor`.
 - **Production Hardening (2 cycles)** — dispatch `security-agent` + `reviewer`
   → `perfectionist` for each cycle.
-- **Final Validation** — run Phase 10 checklist, produce Production Readiness
-  Report.
+- **Final Validation** — run the production readiness checklist, produce
+  Production Readiness Report.
 
-Report back with a clear status at each major transition:
+Report back with a clear status at each wave transition:
+
 - What wave(s) completed, with quality gate results
 - Any newly discovered tasks (scope overhang)
-- Phase gate results (test suite, build, cross-cutting review)
-- Phase 10 readiness assessment
+- Wave gate results (test suite, build, cross-cutting review)
+- Production readiness assessment

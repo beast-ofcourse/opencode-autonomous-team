@@ -81,30 +81,45 @@
 
   "agent": {
     "researcher": {
-      "model": "small_model"
+      "model": "anthropic/claude-haiku-4-5"
     },
     "docs-writer": {
-      "model": "small_model"
+      "model": "anthropic/claude-haiku-4-5"
     },
     "planner": {
-      "model": "small_model"
+      "model": "anthropic/claude-haiku-4-5"
+    },
+    "frontend": {
+      "model": "anthropic/claude-sonnet-4-5"
+    },
+    "backend": {
+      "model": "anthropic/claude-sonnet-4-5"
+    },
+    "tester": {
+      "model": "anthropic/claude-sonnet-4-5"
     },
     "perfectionist": {
+      "model": "anthropic/claude-sonnet-4-5",
       "steps": 120
     },
     "swe-debugger": {
+      "model": "anthropic/claude-sonnet-4-5",
       "steps": 150
     },
     "swe-testing": {
+      "model": "anthropic/claude-sonnet-4-5",
       "steps": 150
     },
     "swe-refactor": {
+      "model": "anthropic/claude-sonnet-4-5",
       "steps": 150
     },
     "devops": {
+      "model": "anthropic/claude-sonnet-4-5",
       "steps": 150
     },
     "swe-security": {
+      "model": "anthropic/claude-sonnet-4-5",
       "steps": 150
     }
   }
